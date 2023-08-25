@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+
+  influxdb:
+    build: ./docker/influxdb
+    restart: unless-stopped
+    ports:
+      - "8086:8086"
+    volumes:
+      - ./docker/influxdb/volume:/var/lib/influxdb2
+
+  single-store:
+    image: memsql/quickstart
+    restart: unless-stopped
+    ports:
+      - "3307:3306" # master aggregator
+      - "9000:9000" # memsql ops
+    volumes:
+      - ./docker/single-store/schema.sql:/schema.sql
+
+  sqlpreview:
+    image: mcr.microsoft.com/mssql/server:2022-preview-ubuntu-22.04
+    #restart: unless-stopped
+    hostname: sqlpreview
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=hW~7;?I/Bukc3GA
+      - MSSQL_PID=Evaluation
+
+  php:
+    build: ./docker/php
+    restart: unless-stopped
+    ports:
+      - "80:80"   # http
+    volumes:
+      - .:/var/www/              # must match vhost's DocumentRoot
+    working_dir: /var/www/       # commands run from this path
+    depends_on: [influxdb, single-store, sqlpreview]
