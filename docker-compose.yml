@@ -38,4 +38,4 @@ services:
     volumes:
       - .:/var/www/              # must match vhost's DocumentRoot
     working_dir: /var/www/       # commands run from this path
-    depends_on: [influxdb, single-store, sqlpreview]
+    depends_on: [influxdb, single-store]

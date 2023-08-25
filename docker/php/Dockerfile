@@ -5,3 +5,9 @@ RUN php -r "if (hash_file('sha384', 'composer-setup.php') === 'e21205b207c3ff031
 RUN php composer-setup.php
 RUN php -r "unlink('composer-setup.php');"
 RUN mv composer.phar /usr/local/bin/composer
+
+RUN  docker-php-ext-install fileinfo
+RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS} \
+  && pecl install pcov \
+  && docker-php-ext-enable pcov \
+  && apk del pcre-dev ${PHPIZE_DEPS}
