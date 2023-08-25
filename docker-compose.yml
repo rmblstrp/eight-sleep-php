@@ -14,7 +14,7 @@ services:
     image: memsql/quickstart
     restart: unless-stopped
     ports:
-      - "3307:3306" # master aggregator
+      - "3306:3306" # master aggregator
       - "9000:9000" # memsql ops
     volumes:
       - ./docker/single-store/schema.sql:/schema.sql
