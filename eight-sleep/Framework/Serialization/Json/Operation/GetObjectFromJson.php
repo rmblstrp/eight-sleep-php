@@ -24,10 +24,10 @@ class GetObjectFromJson extends AbstractDomainOperation
 
     public function execute(string $class, string $json): object
     {
-        $this->logger->debug(self::class . '::execute - Deserializating JSON to Object', [
-            'class' => $class,
-            'json' => $json
-        ]);
+//        $this->logger->debug(self::class . '::execute - Deserializating JSON to Object', [
+//            'class' => $class,
+//            'json' => $json
+//        ]);
         return $this->serializer->deserialize($json, $class, 'json');
     }
 }

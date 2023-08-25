@@ -6,8 +6,8 @@ RUN php composer-setup.php
 RUN php -r "unlink('composer-setup.php');"
 RUN mv composer.phar /usr/local/bin/composer
 
-RUN  docker-php-ext-install fileinfo
-RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS} \
+RUN docker-php-ext-install fileinfo
+RUN docker-php-ext-install pdo_mysql
+RUN apk --no-cache add pcre-dev curl gcc g++ unixodbc-dev ${PHPIZE_DEPS} \
   && pecl install pcov \
-  && docker-php-ext-enable pcov \
-  && apk del pcre-dev ${PHPIZE_DEPS}
+  && docker-php-ext-enable pcov

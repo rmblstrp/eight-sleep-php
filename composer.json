@@ -8,6 +8,7 @@
         "php": "^8.1",
         "giggsey/libphonenumber-for-php": "^8.13",
         "guzzlehttp/guzzle": "^7.2",
+        "influxdb/influxdb-php": "^1.15",
         "jms/serializer": "^3.27",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",

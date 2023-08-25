@@ -10,25 +10,14 @@ services:
     volumes:
       - ./docker/influxdb/volume:/var/lib/influxdb2
 
-  single-store:
-    image: memsql/quickstart
-    #restart: unless-stopped
+  mysql:
+    image: mysql:latest
+    restart: unless-stopped
     ports:
-      - "3306:3306" # master aggregator
-      - "9000:9000" # memsql ops
-    volumes:
-      - ./docker/single-store/schema.sql:/schema.sql
-
-  sqlpreview:
-    image: mcr.microsoft.com/mssql/server:2022-preview-ubuntu-22.04
-    #restart: unless-stopped
-    hostname: sqlpreview
-    ports:
-      - "1433:1433"
+      - "3306:3306"
     environment:
-      - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=hW~7;?I/Bukc3GA
-      - MSSQL_PID=Evaluation
+      - MYSQL_ROOT_PASSWORD=hW~7;?I/Bukc3GA
+      - MYSQL_DATABASE=eight_sleep
 
   nginx:
     build:
@@ -37,21 +26,13 @@ services:
     restart: unless-stopped
     ports:
       - "8080:80"
-    networks:
-      - internal
     volumes:
       - .:/var/www/html
 
   php:
     build: ./docker/php
     restart: unless-stopped
-    networks:
-      - internal
     volumes:
       - .:/var/www/html              # must match vhost's DocumentRoot
     working_dir: /var/www/html       # commands run from this path
-    depends_on: [influxdb, single-store]
-
-networks:
-  internal:
-    driver: bridge
+    depends_on: [influxdb, mysql]

@@ -2,6 +2,8 @@
 
 namespace App\EightSleep;
 
+use EightSleep\App\SleepMetrics\Operations\StoreMetricsInterface;
+use EightSleep\App\SleepMetrics\Operations\StoreMetricsProviders\InfluxDbMetricsProvider;
 use Illuminate\Support\ServiceProvider;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
@@ -20,6 +22,7 @@ class Provider extends ServiceProvider
         $this->app->bind(SerializerInterface::class, function () {
             return SerializerBuilder::create()->build();
         });
+        $this->app->bind(StoreMetricsInterface::class, InfluxDbMetricsProvider::class);
     }
 
     /**
