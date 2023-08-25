@@ -12,7 +12,7 @@ services:
 
   single-store:
     image: memsql/quickstart
-    restart: unless-stopped
+    #restart: unless-stopped
     ports:
       - "3306:3306" # master aggregator
       - "9000:9000" # memsql ops
@@ -30,12 +30,28 @@ services:
       - MSSQL_SA_PASSWORD=hW~7;?I/Bukc3GA
       - MSSQL_PID=Evaluation
 
+  nginx:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    networks:
+      - internal
+    volumes:
+      - .:/var/www/html
+
   php:
     build: ./docker/php
     restart: unless-stopped
-    ports:
-      - "80:80"   # http
+    networks:
+      - internal
     volumes:
-      - .:/var/www/              # must match vhost's DocumentRoot
-    working_dir: /var/www/       # commands run from this path
+      - .:/var/www/html              # must match vhost's DocumentRoot
+    working_dir: /var/www/html       # commands run from this path
     depends_on: [influxdb, single-store]
+
+networks:
+  internal:
+    driver: bridge

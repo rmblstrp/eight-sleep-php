@@ -1,5 +1,6 @@
 <?php
 
+use EightSleep\App\Authentication\Login\V1\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,5 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/v1/auth/login', [LoginController::class, 'handle']);

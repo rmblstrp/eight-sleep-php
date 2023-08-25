@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace EightSleep\Framework\Domain\Logic;
+namespace EightSleep\Framework\Domain\Action;
 
 use Psr\Log\LoggerInterface;
 
-abstract class AbstractDomainLogic implements DomainLogicInterface
+abstract class AbstractDomainAction implements DomainActionInterface
 {
     protected LoggerInterface $logger;
 

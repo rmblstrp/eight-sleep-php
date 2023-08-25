@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Domain;
 
-use EightSleep\Framework\Domain\Logic\AbstractDomainLogic;
+use EightSleep\Framework\Domain\Action\AbstractDomainAction;
 use Mockery;
 use Psr\Log\LoggerInterface;
 use UnitTester;

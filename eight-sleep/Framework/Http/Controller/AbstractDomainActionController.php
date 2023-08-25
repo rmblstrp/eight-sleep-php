@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace EightSleep\Framework\Http\Controller;
 
-use EightSleep\Framework\Domain\Logic\DomainLogicInterface;
-use EightSleep\Framework\Domain\Operation\ClassFactoryInterface;
+use EightSleep\Framework\Domain\Action\DomainActionInterface;
+use EightSleep\Framework\Domain\ClassFactoryInterface;
 use EightSleep\Framework\Http\Enum\HttpStatusCode;
 use EightSleep\Framework\Http\Operation\CreateResponseFromObject;
 use EightSleep\Framework\Http\Operation\GetObjectFromServerRequest;
@@ -13,7 +13,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
 
-abstract class AbstractDomainLogicController
+abstract class AbstractDomainActionController
 {
     protected LoggerInterface $logger;
     protected ClassFactoryInterface $classFactory;
@@ -36,7 +36,7 @@ abstract class AbstractDomainLogicController
     /**
      * @return string
      */
-    abstract public function getDomainLogicClass(): string;
+    abstract public function getDomainActionClass(): string;
 
     /**
      * @return string
@@ -78,9 +78,9 @@ abstract class AbstractDomainLogicController
         $requestObject = $this->getRequestObject($request);
 
         $this->logger->debug(static::class . '::handle - Making Domain Logic');
-        /** @var DomainLogicInterface $requestLogic */
+        /** @var DomainActionInterface $requestLogic */
         $requestLogic = $this->classFactory->make(
-            $this->getDomainLogicClass(),
+            $this->getDomainActionClass(),
             $this->getDomainLogicParameters($request)
         );
 
