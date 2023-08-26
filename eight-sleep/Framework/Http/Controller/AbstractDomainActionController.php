@@ -39,9 +39,9 @@ abstract class AbstractDomainActionController
     abstract public function getDomainActionClass(): string;
 
     /**
-     * @return string
+     * @return string|null
      */
-    abstract public function getDomainObjectClass(): string;
+    abstract public function getDomainObjectClass(): ?string;
 
     /**
      * @return HttpStatusCode
@@ -93,7 +93,10 @@ abstract class AbstractDomainActionController
 
     protected function getRequestObject(ServerRequestInterface $request): ?object
     {
-        return $this->deserializeRequestObject->execute($this->getDomainObjectClass(), $request);
+        $domainObjectClass = $this->getDomainObjectClass();
+        return empty($domainObjectClass)
+            ? null
+            : $this->deserializeRequestObject->execute($domainObjectClass, $request);
     }
 
     protected function getResponse(?object $responseObject): ResponseInterface

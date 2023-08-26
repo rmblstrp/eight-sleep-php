@@ -1,18 +1,18 @@
 <?php
 
-namespace EightSleep\App\Authentication\Login\V1;
+namespace EightSleep\App\User\LinkAccounts\V1;
 
 use EightSleep\Framework\Http\Controller\AbstractDomainActionController;
 
-class AuthenticateUserController extends AbstractDomainActionController
+class CancelAccountLinkingController extends AbstractDomainActionController
 {
     public function getDomainActionClass(): string
     {
-        return AuthenticateUser::class;
+        return CancelAccountLinking::class;
     }
 
     public function getDomainObjectClass(): ?string
     {
-        return Credentials::class;
+        return null;
     }
 }

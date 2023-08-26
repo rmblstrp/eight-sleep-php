@@ -11,7 +11,7 @@ class InitiateAccountLinkingController extends AbstractDomainActionController
         return InitiateAccountLinking::class;
     }
 
-    public function getDomainObjectClass(): string
+    public function getDomainObjectClass(): ?string
     {
         return AccountLinkingRequest::class;
     }
