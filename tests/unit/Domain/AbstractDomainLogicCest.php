@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Domain;
 
-use EightSleep\Framework\Domain\Action\AbstractDomainAction;
+use EightSleep\Framework\Domain\Actions\AbstractDomainAction;
 use Mockery;
 use Psr\Log\LoggerInterface;
 use UnitTester;
@@ -18,6 +18,6 @@ class AbstractDomainLogicCest
         $logger->expects('debug')->andReturns();
         $domainObject = new \stdClass();
         $domainLogic = new SimpleDomainLogic($logger);
-        $I->assertInstanceOf(\stdClass::class, $domainLogic->execute($domainObject));
+        $I->assertInstanceOf(\stdClass::class, $domainLogic->execute($domainObject, null));
     }
 }

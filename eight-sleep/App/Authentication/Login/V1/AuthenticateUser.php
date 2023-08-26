@@ -3,10 +3,10 @@
 namespace EightSleep\App\Authentication\Login\V1;
 
 use EightSleep\App\Authentication\Operations\ValidateCredentials;
-use EightSleep\Framework\Domain\Action\AbstractDomainAction;
+use EightSleep\Framework\Domain\Actions\AbstractDomainAction;
 use Psr\Log\LoggerInterface;
 
-final class LoginAction extends AbstractDomainAction
+final class AuthenticateUser extends AbstractDomainAction
 {
     private ValidateCredentials $authenticationOperation;
 

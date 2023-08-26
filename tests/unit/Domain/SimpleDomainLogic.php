@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Domain;
 
-use EightSleep\Framework\Domain\Action\AbstractDomainAction;
+use EightSleep\Framework\Domain\Actions\AbstractDomainAction;
 
 class SimpleDomainLogic extends AbstractDomainAction
 {

@@ -1,19 +1,19 @@
 <?php
 
-namespace EightSleep\App\Authentication\Operations;
+namespace EightSleep\App\User\Operations;
 
 use EightSleep\Framework\Domain\Operations\AbstractDomainOperation;
 use Psr\Log\LoggerInterface;
 
-class ValidateCredentials extends AbstractDomainOperation
+class AddAccountLinkRequestEntry extends AbstractDomainOperation
 {
     public function __construct(LoggerInterface $logger)
     {
         parent::__construct($logger);
     }
 
-    public function isValid(string $username, string $password): bool
+    public function add(string $email): void
     {
-        return false;
+
     }
 }

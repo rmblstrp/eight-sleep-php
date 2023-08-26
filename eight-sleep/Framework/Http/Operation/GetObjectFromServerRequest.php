@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace EightSleep\Framework\Http\Operation;
 
-use EightSleep\Framework\Domain\Operation\AbstractDomainOperation;
+use EightSleep\Framework\Domain\Operations\AbstractDomainOperation;
 use EightSleep\Framework\Serialization\Json\Operation\GetObjectFromJson;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;

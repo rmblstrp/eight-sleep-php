@@ -11,3 +11,5 @@ RUN docker-php-ext-install pdo_mysql
 RUN apk --no-cache add pcre-dev curl gcc g++ unixodbc-dev ${PHPIZE_DEPS} \
   && pecl install pcov \
   && docker-php-ext-enable pcov
+RUN apk add --update nodejs npm
+RUN apk add --update npm

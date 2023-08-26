@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace EightSleep\Framework\Serialization\Json\Operation;
 
-use EightSleep\Framework\Domain\Operation\AbstractDomainOperation;
+use EightSleep\Framework\Domain\Operations\AbstractDomainOperation;
 
 class GetArrayFromJson extends AbstractDomainOperation
 {

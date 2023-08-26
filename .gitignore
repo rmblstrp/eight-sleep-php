@@ -2,7 +2,8 @@
 .idea
 
 # Docker
-docker/influxdb/volume
+docker/influxdb/data
+docker/influxdb/config
 
 /vendor/
 node_modules/

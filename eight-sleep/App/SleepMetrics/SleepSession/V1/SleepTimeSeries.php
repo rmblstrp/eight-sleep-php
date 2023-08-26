@@ -9,27 +9,27 @@ final class SleepTimeSeries
     /**
      * @Serializer\Type("array")
      */
-    protected array $tnt = [];
+    private array $tnt = [];
     /**
      * @Serializer\Type("array")
      */
-    protected array $tempRoomC = [];
+    private array $tempRoomC = [];
     /**
      * @Serializer\Type("array")
      */
-    protected array $tempBedC = [];
+    private array $tempBedC = [];
     /**
      * @Serializer\Type("array")
      */
-    protected array $respiratoryRate = [];
+    private array $respiratoryRate = [];
     /**
      * @Serializer\Type("array")
      */
-    protected array $heartRate = [];
+    private array $heartRate = [];
     /**
      * @Serializer\Type("array")
      */
-    protected array $heating = [];
+    private array $heating = [];
 
     public function __construct(array $tnt = [], array $tempRoomC = [], array $tempBedC = [], array $respiratoryRate = [], array $heartRate = [], array $heating = [])
     {

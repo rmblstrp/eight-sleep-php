@@ -11,7 +11,7 @@ final class SessionData
      * @var SleepInterval[]
      * @Serializer\Type("array<EightSleep\App\SleepMetrics\SleepSession\V1\SleepInterval>")
      */
-    protected array $intervals = [];
+    private array $intervals = [];
 
     /**
      * @param SleepInterval[] $intervals

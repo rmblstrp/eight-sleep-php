@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace EightSleep\Framework\Http\Controller;
 
-use EightSleep\Framework\Domain\Action\DomainActionInterface;
+use EightSleep\Framework\Domain\Actions\DomainActionInterface;
 use EightSleep\Framework\Domain\ClassFactoryInterface;
 use EightSleep\Framework\Http\Enum\HttpStatusCode;
 use EightSleep\Framework\Http\Operation\CreateResponseFromObject;
@@ -85,7 +85,7 @@ abstract class AbstractDomainActionController
         );
 
         $this->logger->debug(static::class . '::handle - Executing Domain Logic');
-        $responseObject = $requestLogic->execute($requestObject);
+        $responseObject = $requestLogic->execute($requestObject, null);
 
         $this->logger->debug(static::class . '::handle - Creating Response Object');
         return $this->getResponse($responseObject);

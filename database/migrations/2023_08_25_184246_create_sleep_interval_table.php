@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sleep_user', function (Blueprint $table) {
+        Schema::create('sleep_interval_entry', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('interval_id')->unique();
+            $table->dateTime('interval_datetime');
             $table->timestamps();
+
+            $table->index(['user_id', 'interval_datetime']);
         });
     }
 
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user');
+        Schema::dropIfExists('sleep_interval_entry');
     }
 };

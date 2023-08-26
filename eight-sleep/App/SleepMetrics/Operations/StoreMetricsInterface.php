@@ -6,5 +6,5 @@ use Carbon\Carbon;
 
 interface StoreMetricsInterface
 {
-    function save(int $userId, Carbon $timestamp, string $measurement, string $value, array $attributes = []);
+    function save(string $id, Carbon $timestamp, string $measurement, $value, array $attributes = []): void;
 }

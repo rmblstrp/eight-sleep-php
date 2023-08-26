@@ -6,18 +6,18 @@ use JMS\Serializer\Annotation as Serializer;
 
 final class SleepInterval
 {
-    protected string $id = '';
-    protected string $ts = '';
+    private string $id = '';
+    private string $ts = '';
     /**
      * @var SleepStage[]
      * @Serializer\Type("array<EightSleep\App\SleepMetrics\SleepSession\V1\SleepStage>")
      */
-    protected array $stages = [];
-    protected int $score = 0;
+    private array $stages = [];
+    private int $score = 0;
     /**
      * @Serializer\Type("EightSleep\App\SleepMetrics\SleepSession\V1\SleepTimeSeries")
      */
-    protected ?SleepTimeSeries $timeseries = null;
+    private ?SleepTimeSeries $timeseries = null;
 
     public function __construct(string $id = '', string $ts = '', array $stages = [], int $score = 0, SleepTimeSeries $timeseries = null)
     {

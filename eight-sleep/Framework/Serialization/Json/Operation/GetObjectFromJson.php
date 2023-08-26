@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace EightSleep\Framework\Serialization\Json\Operation;
 
 use JMS\Serializer\SerializerInterface;
-use EightSleep\Framework\Domain\Operation\AbstractDomainOperation;
+use EightSleep\Framework\Domain\Operations\AbstractDomainOperation;
 use Psr\Log\LoggerInterface;
 
 class GetObjectFromJson extends AbstractDomainOperation

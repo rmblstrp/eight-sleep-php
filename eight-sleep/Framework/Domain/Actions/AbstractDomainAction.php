@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace EightSleep\Framework\Domain\Action;
+namespace EightSleep\Framework\Domain\Actions;
 
+use EightSleep\Framework\Domain\Objects\DomainActionConfig;
 use Psr\Log\LoggerInterface;
 
 abstract class AbstractDomainAction implements DomainActionInterface
@@ -22,13 +23,16 @@ abstract class AbstractDomainAction implements DomainActionInterface
      * Calls child class method handle to allow for specific request object type declaration
      *
      * @param object|null $parameters
+     * @param DomainActionConfig|null $config
+     *
      * @return object|null
      */
-    public function execute(?object $parameters): ?object
+    public function execute(?object $parameters, ?DomainActionConfig $config = null): ?object
     {
         $this->logger->debug(static::class . '::execute - Calling handle', [
             'parameters' => $parameters,
+            'config' => $config,
         ]);
-        return call_user_func([$this, 'handle'], $parameters);
+        return call_user_func([$this, 'handle'], $parameters, $config);
     }
 }

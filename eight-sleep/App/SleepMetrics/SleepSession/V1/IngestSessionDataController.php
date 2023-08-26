@@ -4,12 +4,11 @@ namespace EightSleep\App\SleepMetrics\SleepSession\V1;
 
 use EightSleep\Framework\Http\Controller\AbstractDomainActionController;
 
-final class SessionController  extends AbstractDomainActionController
+final class IngestSessionDataController  extends AbstractDomainActionController
 {
-
     public function getDomainActionClass(): string
     {
-        return SessionAction::class;
+        return IngestSessionData::class;
     }
 
     public function getDomainObjectClass(): string

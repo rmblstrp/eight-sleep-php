@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\EightSleep;
 
 use Illuminate\Contracts\Foundation\Application;
-use EightSleep\Framework\Domain\Operation\AbstractDomainOperation;
+use EightSleep\Framework\Domain\Operations\AbstractDomainOperation;
 use EightSleep\Framework\Domain\ClassFactoryInterface;
 use Psr\Log\LoggerInterface;
 
