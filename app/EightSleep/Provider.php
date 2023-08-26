@@ -3,16 +3,16 @@
 namespace App\EightSleep;
 
 use EightSleep\App\SleepMetrics\Objects\SleepIntervalEntryInterface;
-use EightSleep\App\SleepMetrics\Operations\StoreMetricsInterface;
 use EightSleep\App\SleepMetrics\Operations\MetricProviders\InfluxDbMetricsProvider;
+use EightSleep\App\SleepMetrics\Operations\StoreMetricsInterface;
 use EightSleep\App\User\Objects\AccountLinkRequestEntryInterface;
 use EightSleep\App\User\Operations\GetUserInterface;
+use EightSleep\Framework\Domain\ClassFactoryInterface;
 use Illuminate\Support\ServiceProvider;
 use InfluxDB2\Client as InfluxDbClient;
 use InfluxDB2\Model\WritePrecision;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
-use EightSleep\Framework\Domain\ClassFactoryInterface;
 
 class Provider extends ServiceProvider
 {

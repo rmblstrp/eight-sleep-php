@@ -5,7 +5,7 @@ namespace EightSleep\App\User\LinkUserAccounts\V1;
 use EightSleep\Framework\Domain\Actions\AbstractDomainAction;
 use Psr\Log\LoggerInterface;
 
-class CancelUserAccountLinking extends AbstractDomainAction
+class CompleteAccountLinking extends AbstractDomainAction
 {
     public function __construct(LoggerInterface $logger)
     {
