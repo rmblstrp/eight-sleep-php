@@ -1,6 +1,6 @@
 <?php
 
-namespace EightSleep\App\User\LinkUserAccounts\V1;
+namespace EightSleep\App\User\LinkAccounts\V1;
 
 use EightSleep\Framework\Http\Controller\AbstractDomainActionController;
 
