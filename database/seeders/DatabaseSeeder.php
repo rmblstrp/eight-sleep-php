@@ -7,6 +7,9 @@ use App\Models\User;
 use Carbon\Carbon;
 use EightSleep\App\SleepMetrics\SleepSession\V1\IngestSessionData;
 use EightSleep\App\SleepMetrics\SleepSession\V1\SessionData;
+use EightSleep\App\User\LinkUserAccounts\V1\AccountLinkingRequest;
+use EightSleep\App\User\LinkUserAccounts\V1\InitiateAccountLinking;
+use EightSleep\App\User\Objects\UserInterface;
 use EightSleep\Framework\Domain\Objects\DomainActionConfig;
 use EightSleep\Framework\Serialization\Json\Operation\GetObjectFromJson;
 use Illuminate\Database\Seeder;
@@ -23,6 +26,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         DB::delete('delete from sleep_interval_entry');
+        DB::delete('delete from linked_users');
+        DB::delete('delete from account_link_request_entry');
         DB::delete('delete from users');
         /** @var Client $influx */
         $influx = app()->make(Client::class);
@@ -60,6 +65,17 @@ class DatabaseSeeder extends Seeder
             /** @var IngestSessionData $sessionAction */
             $sessionAction = app()->make(IngestSessionData::class);
             $sessionAction->execute($session, (new DomainActionConfig())->setUserId($item['user']->id));
+        }
+
+        $user4 = User::factory()->make(['email' => 'user4@eightsleep.com']);
+        $user4->save();
+
+        /** @var InitiateAccountLinking $initiateAccountLinking */
+        $initiateAccountLinking = app()->make(InitiateAccountLinking::class);
+        foreach ($seeds as $item) {
+            /** @var User $user */
+            $user = $item['user'];
+            $initiateAccountLinking->execute(new AccountLinkingRequest($user->getEmail()), (new DomainActionConfig())->setUserId($user4->getId()));
         }
     }
 }

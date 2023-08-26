@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('linked_users', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->index();
-            $table->unsignedBigInteger('linked_users_id')->index();
+            $table->unsignedBigInteger('linked_user_id')->index();
             $table->timestamps();
 
             $table->foreign('user_id', 'fk_user_id')
                 ->references('id')->on('users')
                 ->onUpdate('cascade');
-            $table->foreign('linked_users_id', 'fk_linked_users_id')
+            $table->foreign('linked_user_id', 'fk_linked_users_id')
                 ->references('id')->on('users')
                 ->onUpdate('cascade');
         });

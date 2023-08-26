@@ -17,6 +17,6 @@ class GetUserFromEmail extends AbstractDomainOperation implements GetUserFromEma
 
     function result(string $email): ?UserInterface
     {
-        return User::where('email', $email)->take(1)->get();
+        return User::where('email', $email)->first();
     }
 }

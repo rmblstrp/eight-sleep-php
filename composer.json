@@ -6,6 +6,7 @@
     "license": "proprietary",
     "require": {
         "php": "^8.1",
+        "aws/aws-sdk-php": "^3.279",
         "giggsey/libphonenumber-for-php": "^8.13",
         "guzzlehttp/guzzle": "^7.7",
         "influxdata/influxdb-client-php": "^3.4",
