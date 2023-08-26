@@ -6,10 +6,10 @@ namespace EightSleep\Framework\Utility;
 
 use Carbon\Carbon;
 use DateTime;
+use EightSleep\Framework\Utility\Exception\ConvertException;
 use Exception;
 use Iterator;
 use IteratorAggregate;
-use EightSleep\Framework\Utility\Exception\ConvertException;
 
 /**
  * Class Convert

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace EightSleep\Framework\Http\Operation;
 
-use GuzzleHttp\Psr7\Response;
 use EightSleep\Framework\Domain\Operations\AbstractDomainOperation;
 use EightSleep\Framework\Http\Enum\ContentType;
 use EightSleep\Framework\Http\Enum\HttpHeader;
 use EightSleep\Framework\Http\Enum\HttpStatusCode;
 use EightSleep\Framework\Serialization\Json\Operation\SerializeObjectToJson;
+use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use stdClass;

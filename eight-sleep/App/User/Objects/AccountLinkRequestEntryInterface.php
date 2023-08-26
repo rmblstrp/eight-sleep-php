@@ -2,7 +2,6 @@
 
 namespace EightSleep\App\User\Objects;
 
-use EightSleep\App\User\LinkUserAccounts\V1\AccountLinkingRequest;
 use EightSleep\Framework\Domain\Objects\DeletableModelInterface;
 use EightSleep\Framework\Domain\Objects\PersistableModelInterface;
 

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace EightSleep\Framework\Utility;
 
+use EightSleep\Framework\Utility\Exception\FormatException;
 use libphonenumber\PhoneNumberFormat;
 use libphonenumber\PhoneNumberUtil;
-use EightSleep\Framework\Utility\Exception\FormatException;
 use Throwable;
 
 /**

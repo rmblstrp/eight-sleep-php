@@ -2,8 +2,6 @@
 
 namespace EightSleep\App\SleepMetrics\SleepSession\V1;
 
-use JMS\Serializer\Annotation as Serializer;
-
 final class SleepInterval
 {
     private string $id = '';

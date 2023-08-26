@@ -2,7 +2,6 @@
 
 namespace EightSleep\App\User\Operations;
 
-use EightSleep\App\User\Objects\UserInterface;
 use EightSleep\Framework\Domain\Operations\AbstractDomainOperation;
 use Psr\Log\LoggerInterface;
 

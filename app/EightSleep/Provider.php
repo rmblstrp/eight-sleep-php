@@ -6,7 +6,7 @@ use EightSleep\App\SleepMetrics\Objects\SleepIntervalEntryInterface;
 use EightSleep\App\SleepMetrics\Operations\StoreMetricsInterface;
 use EightSleep\App\SleepMetrics\Operations\MetricProviders\InfluxDbMetricsProvider;
 use EightSleep\App\User\Objects\AccountLinkRequestEntryInterface;
-use EightSleep\App\User\Operations\GetUserFromEmailInterface;
+use EightSleep\App\User\Operations\GetUserInterface;
 use Illuminate\Support\ServiceProvider;
 use InfluxDB2\Client as InfluxDbClient;
 use InfluxDB2\Model\WritePrecision;
@@ -39,7 +39,7 @@ class Provider extends ServiceProvider
                 'precision' => WritePrecision::NS
             ]);
         });
-        $this->app->bind(GetUserFromEmailInterface::class, GetUserFromEmail::class);
+        $this->app->bind(GetUserInterface::class, GetUser::class);
         $this->app->bind(AccountLinkRequestEntryInterface::class, AccountLinkRequestEntry::class);
     }
 

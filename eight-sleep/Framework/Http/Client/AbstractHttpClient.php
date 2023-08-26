@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace EightSleep\Framework\Http\Client;
 
-use Exception;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\ConnectException;
-use GuzzleHttp\Psr7\Request;
 use EightSleep\Framework\Http\Enum\ContentType;
 use EightSleep\Framework\Http\Enum\HttpMethod;
 use EightSleep\Framework\Http\Exception\HttpClientException;
 use EightSleep\Framework\Http\Exception\HttpClientTimeoutException;
+use Exception;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;

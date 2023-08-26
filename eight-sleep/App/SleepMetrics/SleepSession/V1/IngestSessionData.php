@@ -2,11 +2,8 @@
 
 namespace EightSleep\App\SleepMetrics\SleepSession\V1;
 
-use Carbon\Carbon;
-use EightSleep\App\Authentication\Login\V1\Credentials;
 use EightSleep\App\SleepMetrics\Operations\AddSleepIntervalEntry;
 use EightSleep\App\SleepMetrics\Operations\AddSleepIntervalMetrics;
-use EightSleep\App\SleepMetrics\Operations\StoreMetricsInterface;
 use EightSleep\Framework\Domain\Actions\AbstractDomainAction;
 use EightSleep\Framework\Domain\Objects\DomainActionConfig;
 use Psr\Log\LoggerInterface;

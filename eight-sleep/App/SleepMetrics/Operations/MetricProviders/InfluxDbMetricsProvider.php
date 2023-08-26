@@ -4,7 +4,6 @@ namespace EightSleep\App\SleepMetrics\Operations\MetricProviders;
 
 use Carbon\Carbon;
 use EightSleep\App\SleepMetrics\Operations\StoreMetricsInterface;
-use EightSleep\Framework\Domain\ClassFactoryInterface;
 use EightSleep\Framework\Domain\Operations\AbstractDomainOperation;
 use InfluxDB2\Client as InfluxClient;
 use InfluxDB2\Point;

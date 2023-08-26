@@ -86,6 +86,4 @@ class User extends Authenticatable implements UserInterface
         $this->setAttribute('password', $password);
         return $this;
     }
-
-
 }

@@ -2,9 +2,6 @@
 
 namespace EightSleep\App\SleepMetrics\SleepSession\V1;
 
-use EightSleep\App\SleepMetrics\SleepSession\V1\SleepInterval;
-use JMS\Serializer\Annotation as Serializer;
-
 final class SessionData
 {
     /**
