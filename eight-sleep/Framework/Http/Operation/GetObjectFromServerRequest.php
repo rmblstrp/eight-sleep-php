@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace EightSleep\Framework\Http\Operation;
 
+use EightSleep\Framework\Domain\ClassFactoryInterface;
 use EightSleep\Framework\Domain\Operations\AbstractDomainOperation;
 use EightSleep\Framework\Serialization\Json\Operation\GetObjectFromJson;
 use Psr\Http\Message\ServerRequestInterface;
@@ -30,12 +31,39 @@ class GetObjectFromServerRequest extends AbstractDomainOperation
      */
     public function execute(string $class, ServerRequestInterface $request): ?object
     {
+        if ($request->getMethod() === 'GET' || $request->getMethod() === 'DELETE') {
+            return $this->getObjectFromJson->execute($class, json_encode($request->getQueryParams()));
+        }
+
+        $contentTypeHeaders = $request->getHeader('Content-Type');
+        if ($contentTypeHeaders == null || count($contentTypeHeaders) < 1) {
+            $contentType = null;
+        }
+        else {
+            $contentType = $contentTypeHeaders[0];
+
+            $position = strpos($contentType, ';');
+            if ($position !== false) {
+                $contentType = substr($contentType, 0, $position);
+            }
+        }
+
         $json = $request->getBody()->getContents();
         $this->logger->debug(self::class . '::execute', [
             'class' => $class,
             'request' => $request,
             'json' => $json,
         ]);
-        return $this->getObjectFromJson->execute($class, $json);
+
+        switch ($contentType) {
+            case 'application/json':
+                return $this->getObjectFromJson->execute($class, $json);
+            case 'application/x-www-form-urlencoded':
+            case 'multipart/form-data':
+                $parameters = array_merge($request->getParsedBody(), $request->getUploadedFiles());
+                return $this->getObjectFromJson->execute($class, json_encode($parameters));
+        }
+
+        throw new \Exception('Unknown content type');
     }
 }
