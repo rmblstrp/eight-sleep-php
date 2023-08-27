@@ -99,11 +99,23 @@ class DatabaseSeeder extends Seeder
             $inviteEntryIds[$user->getId()] = $initiateAccountLinking->execute(new RequestAccountLinking($user->getEmail()), (new DomainActionConfig())->setUserId($user4->getId()));
         }
 
+        // linked_user_accounts should have a row connecting user1@eightsleep.com with user2@eightsleep.com
         $linkUserAccounts->link($user1->getId(), $user2->getId());
+
+        // linked_user_accounts should have a row connecting user2@eightsleep.com with user3@eightsleep.com
         $linkUserAccounts->link($user2->getId(), $user3->getId());
+
+        // linked_user_accounts should have a row connecting user3@eightsleep.com with user1@eightsleep.com
         $linkUserAccounts->link($user3->getId(), $user1->getId());
 
+        // Account link request entry for user1@eightsleep.com should have been removed from account_link_request_entry table
+        // linked_user_accounts should have a row connecting user1@eightsleep.com with user4@eightsleep.com
         $completeAccountLinking->execute(new AccountLinkRequestEntry($inviteEntryIds[$user1->getId()]->getId()), (new DomainActionConfig())->setUserId($user1->getId()));
+
+        // Account link request entry for user2@eightsleep.com should have been removed from account_link_request_entry table
         $cancelAccountLinking->execute(new AccountLinkRequestEntry($inviteEntryIds[$user2->getId()]->getId()), (new DomainActionConfig())->setUserId($user2->getId()));
+
+        // Account link request entry for user3@eightsleep.com should remain in account_link_request_entry table
+        $cancelAccountLinking->execute(new AccountLinkRequestEntry($inviteEntryIds[$user3->getId()]->getId()), (new DomainActionConfig())->setUserId($user4->getId()));
     }
 }
