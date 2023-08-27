@@ -30,7 +30,7 @@ class InitiateAccountLinking extends AbstractDomainAction
         $this->sendAccountLinkNotification = $sendAccountLinkNotification;
     }
 
-    protected function handle(AccountLinkingRequest $request, DomainActionConfig $config): ?object
+    protected function handle(RequestAccountLinking $request, DomainActionConfig $config): ?object
     {
         $invitedUser = $this->userEmailExists->byEmail($request->getEmail());
         if ($invitedUser instanceof UserInterface) {

@@ -6,6 +6,8 @@ use EightSleep\App\User\Objects\AccountLinkRequestEntryInterface;
 
 interface GetAccountLinkRequestEntryInterface
 {
+    function getById(int $id): ?AccountLinkRequestEntryInterface;
+
     /**
      * @param int $requestingUserId
      *

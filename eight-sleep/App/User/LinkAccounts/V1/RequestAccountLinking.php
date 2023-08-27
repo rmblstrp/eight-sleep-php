@@ -2,7 +2,7 @@
 
 namespace EightSleep\App\User\LinkAccounts\V1;
 
-class AccountLinkingRequest
+class RequestAccountLinking
 {
     private string $email = '';
 

@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('linked_users', function (Blueprint $table) {
+        Schema::create('linked_user_accounts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->index();
+            $table->unsignedBigInteger('originating_user_id')->index();
             $table->unsignedBigInteger('linked_user_id')->index();
             $table->timestamps();
 
-            $table->foreign('user_id', 'fk_user_id')
+            $table->foreign('originating_user_id', 'fk_originating_user_id')
                 ->references('id')->on('users')
                 ->onUpdate('cascade');
-            $table->foreign('linked_user_id', 'fk_linked_users_id')
+            $table->foreign('linked_user_id', 'fk_linked_user_id')
                 ->references('id')->on('users')
                 ->onUpdate('cascade');
         });
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('linked_users');
+        Schema::dropIfExists('linked_user_accounts');
     }
 };

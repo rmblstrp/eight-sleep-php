@@ -7,6 +7,8 @@ use EightSleep\Framework\Domain\Objects\PersistableModelInterface;
 
 interface AccountLinkRequestEntryInterface extends PersistableModelInterface, DeletableModelInterface
 {
+    function getId(): int;
+
     function getRequestingUserId(): int;
     function setRequestingUserId(int $requestingUserId): AccountLinkRequestEntryInterface;
 

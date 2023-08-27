@@ -13,6 +13,6 @@ class CompleteAccountLinkingController extends AbstractDomainActionController
 
     public function getDomainObjectClass(): ?string
     {
-        return null;
+        return AccountLinkRequestEntry::class;
     }
 }

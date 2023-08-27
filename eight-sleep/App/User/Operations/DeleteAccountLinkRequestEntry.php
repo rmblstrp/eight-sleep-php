@@ -2,6 +2,7 @@
 
 namespace EightSleep\App\User\Operations;
 
+use EightSleep\App\User\Objects\AccountLinkRequestEntryInterface;
 use EightSleep\Framework\Domain\Operations\AbstractDomainOperation;
 use Psr\Log\LoggerInterface;
 
@@ -16,14 +17,12 @@ class DeleteAccountLinkRequestEntry extends AbstractDomainOperation
         $this->getAccountLinkRequestEntry = $getAccountLinkRequestEntry;
     }
 
-    public function delete(int $userId): void
+    public function delete(int $userId, int $accountLinkRequestEntryId): void
     {
-        foreach ($this->getAccountLinkRequestEntry->getByRequestingUserId($userId) as $entry) {
-            $entry->delete();
-        }
+        $accountLinkRequestEntry = $this->getAccountLinkRequestEntry->getById($accountLinkRequestEntryId);
+        if (!($accountLinkRequestEntry instanceof AccountLinkRequestEntryInterface)) return;
+        if ($accountLinkRequestEntry->getInvitedUserId() !== $userId) return;
 
-        foreach ($this->getAccountLinkRequestEntry->getByInvitedUserId($userId) as $entry) {
-            $entry->delete();
-        }
+        $accountLinkRequestEntry->delete();
     }
 }

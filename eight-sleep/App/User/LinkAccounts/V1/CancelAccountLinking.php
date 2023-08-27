@@ -18,9 +18,9 @@ class CancelAccountLinking extends AbstractDomainAction
         $this->deleteAccountLinkRequestEntry = $deleteAccountLinkRequestEntry;
     }
 
-    protected function handle(?object $parameters, DomainActionConfig $config): ?object
+    protected function handle(AccountLinkRequestEntry $accountLinkRequestEntry, DomainActionConfig $config): ?object
     {
-        $this->deleteAccountLinkRequestEntry->delete($config->getUserId());
+        $this->deleteAccountLinkRequestEntry->delete($config->getUserId(), $accountLinkRequestEntry->getId());
 
         return null;
     }

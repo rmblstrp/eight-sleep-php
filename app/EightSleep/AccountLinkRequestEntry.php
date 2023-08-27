@@ -9,6 +9,8 @@ class AccountLinkRequestEntry extends Model implements AccountLinkRequestEntryIn
 {
     protected $table = 'account_link_request_entry';
 
+
+
     function getRequestingUserId(): int
     {
         return $this->getAttributeValue('requesting_user_id');
