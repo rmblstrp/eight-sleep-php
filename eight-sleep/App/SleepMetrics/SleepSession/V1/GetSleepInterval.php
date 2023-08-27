@@ -2,6 +2,9 @@
 
 namespace EightSleep\App\SleepMetrics\SleepSession\V1;
 
+use EightSleep\App\SleepMetrics\Objects\SleepIntervalEntryInterface;
+use EightSleep\App\SleepMetrics\Operations\GetSleepIntervalEntryInterface;
+use EightSleep\App\SleepMetrics\Operations\GetSleepIntervalFromMetrics;
 use EightSleep\App\SleepMetrics\Operations\ReadMetricsInterface;
 use EightSleep\App\User\Objects\LinkedUserAccountsInterface;
 use EightSleep\App\User\Operations\GetLinkedUserAccountsInterface;
@@ -12,17 +15,20 @@ use Psr\Log\LoggerInterface;
 class GetSleepInterval extends AbstractDomainAction
 {
     private GetLinkedUserAccountsInterface $getLinkedUserAccounts;
+    private GetSleepIntervalEntryInterface $getSleepIntervalEntry;
     private ReadMetricsInterface $readMetrics;
 
     public function __construct(
         LoggerInterface $logger,
         GetLinkedUserAccountsInterface $getLinkedUserAccounts,
+        GetSleepIntervalEntryInterface $getSleepIntervalEntry,
         ReadMetricsInterface $readMetrics
     )
     {
         parent::__construct($logger);
 
         $this->getLinkedUserAccounts = $getLinkedUserAccounts;
+        $this->getSleepIntervalEntry = $getSleepIntervalEntry;
         $this->readMetrics = $readMetrics;
     }
 
@@ -37,6 +43,11 @@ class GetSleepInterval extends AbstractDomainAction
             }
         }
 
+        $sleepIntervalEntry = $this->getSleepIntervalEntry->byIntervalId($sleepIntervalRequest->getIntervalId(), $targetUserId);
+        if ($sleepIntervalEntry instanceof SleepIntervalEntryInterface) {
+            $sleepInterval = $this->readMetrics->getByIntervalId($sleepIntervalRequest->getIntervalId());
+        }
 
+        return null;
     }
 }

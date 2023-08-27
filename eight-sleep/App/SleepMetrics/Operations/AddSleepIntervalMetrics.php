@@ -12,11 +12,11 @@ class AddSleepIntervalMetrics extends AbstractDomainOperation
 {
     private StoreMetricsInterface $storeMetrics;
 
-    public function __construct(LoggerInterface $logger, StoreMetricsInterface $storeMetrics)
+    public function __construct(LoggerInterface $logger, StoreMetricsInterface $readMetrics)
     {
         parent::__construct($logger);
 
-        $this->storeMetrics = $storeMetrics;
+        $this->storeMetrics = $readMetrics;
     }
 
     public function add(SleepInterval $sleepInterval): void

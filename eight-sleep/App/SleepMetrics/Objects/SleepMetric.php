@@ -16,7 +16,7 @@ class SleepMetric
      * @param int $id
      * @param Carbon $datetime
      * @param string $name
-     * @param string $value
+     * @param mixed $value
      * @param array $additional
      */
     public function __construct(int $id, Carbon $datetime, string $name, mixed $value, array $additional = [])

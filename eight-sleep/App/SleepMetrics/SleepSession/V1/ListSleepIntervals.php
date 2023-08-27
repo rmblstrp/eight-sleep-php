@@ -3,7 +3,7 @@
 namespace EightSleep\App\SleepMetrics\SleepSession\V1;
 
 use Carbon\Carbon;
-use EightSleep\App\User\Operations\GetSleepIntervalEntryInterface;
+use EightSleep\App\SleepMetrics\Operations\GetSleepIntervalEntryInterface;
 use EightSleep\Framework\Domain\Actions\AbstractDomainAction;
 use EightSleep\Framework\Domain\Objects\DomainActionConfig;
 use Psr\Log\LoggerInterface;

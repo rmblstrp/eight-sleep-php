@@ -1,12 +1,14 @@
 <?php
 
-namespace EightSleep\App\User\Operations;
+namespace EightSleep\App\SleepMetrics\Operations;
 
 use App\EightSleep\SleepIntervalEntry;
 use Carbon\Carbon;
 
 interface GetSleepIntervalEntryInterface
 {
+    function byIntervalId(int $intervalId, ?int $userId = null): ?SleepIntervalEntry;
+
     /**
      * @param int $userId
      * @param Carbon $from
