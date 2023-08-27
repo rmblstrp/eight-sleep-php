@@ -26,6 +26,19 @@ services:
       - MYSQL_ROOT_PASSWORD=hW~7;?I/Bukc3GA
       - MYSQL_DATABASE=eight_sleep
 
+  nodejs:
+    image: node:alpine
+    container_name: nodejs
+    entrypoint: /bin/sh
+    ports:
+      - "8888:8888"
+    working_dir: /srv/app
+    volumes:
+      - type: bind
+        source: ./
+        target: /srv/app
+    tty: true
+
   nginx:
     build:
       context: .
@@ -35,14 +48,11 @@ services:
       - "8080:80"
     volumes:
       - .:/var/www/html
+    working_dir: /var/www/html
 
   php:
     build: ./docker/php
     restart: unless-stopped
-    ports:
-      - "5174:5174"
-      - "3000:3000"
-      - "8000:8000"
     volumes:
       - .:/var/www/html              # must match vhost's DocumentRoot
     working_dir: /var/www/html       # commands run from this path

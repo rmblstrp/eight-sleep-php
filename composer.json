@@ -9,6 +9,7 @@
         "aws/aws-sdk-php": "^3.279",
         "giggsey/libphonenumber-for-php": "^8.13",
         "guzzlehttp/guzzle": "^7.7",
+        "inertiajs/inertia-laravel": "^0.6.9",
         "influxdata/influxdb-client-php": "^3.4",
         "jms/serializer": "^3.27",
         "laravel/framework": "^10.10",
@@ -22,7 +23,8 @@
         "psr/log": "^3.0",
         "ramsey/uuid": "^4.7",
         "symfony/property-access": "^6.3",
-        "symfony/psr-http-message-bridge": "^2.3"
+        "symfony/psr-http-message-bridge": "^2.3",
+        "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
         "codeception/codeception": "^5.0",
@@ -30,6 +32,7 @@
         "codeception/module-asserts": "^3.0",
         "fakerphp/faker": "^1.9.1",
         "hamcrest/hamcrest-php": "^2.0",
+        "laravel/breeze": "^1.23",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
