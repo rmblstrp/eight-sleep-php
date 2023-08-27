@@ -116,6 +116,5 @@ class DatabaseSeeder extends Seeder
         $cancelAccountLinking->execute(new AccountLinkRequestEntry($inviteEntryIds[$user2->getId()]->getId()), (new DomainActionConfig())->setUserId($user2->getId()));
 
         // Account link request entry for user3@eightsleep.com should remain in account_link_request_entry table
-        $cancelAccountLinking->execute(new AccountLinkRequestEntry($inviteEntryIds[$user3->getId()]->getId()), (new DomainActionConfig())->setUserId($user4->getId()));
     }
 }
