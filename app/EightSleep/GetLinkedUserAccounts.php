@@ -12,19 +12,26 @@ class GetLinkedUserAccounts implements GetLinkedUserAccountsInterface
 
     function getById(int $id): ?LinkedUserAccountsInterface
     {
-        LinkedUserAccounts::where('id', $id)->first();
+        return LinkedUserAccounts::where('id', $id)->first();
     }
 
-    function getForLinkedUsers(int $user1, int $user2): ?LinkedUserAccountsInterface
+    function getForLinkedUsers(int $userId1, int $userId2): ?LinkedUserAccountsInterface
     {
-        return LinkUserAccounts::where(function (Builder $query) use ($user1, $user2) {
+        return LinkUserAccounts::where(function (Builder $query) use ($userId1, $userId2) {
             $query
-                ->where('originating_user_id', $user1)
-                ->orWhere('invited_user_id', $user2);
-        })->orWhere(function (Builder $query) use ($user1, $user2) {
+                ->where('originating_user_id', $userId1)
+                ->orWhere('linked_user_id', $userId2);
+        })->orWhere(function (Builder $query) use ($userId1, $userId2) {
             $query
-                ->where('originating_user_id', $user2)
-                ->orWhere('invited_user_id', $user1);
+                ->where('originating_user_id', $userId2)
+                ->orWhere('linked_user_id', $userId1);
         })->first();
+    }
+
+    function getForUser(int $userId): ?LinkedUserAccountsInterface
+    {
+        return LinkedUserAccounts::where('originating_user_id', $userId)
+            ->orWhere('linked_user_id', $userId)
+            ->get()->all();
     }
 }

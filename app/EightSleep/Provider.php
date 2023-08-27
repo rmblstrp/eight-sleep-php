@@ -8,6 +8,7 @@ use EightSleep\App\SleepMetrics\Operations\StoreMetricsInterface;
 use EightSleep\App\User\Objects\AccountLinkRequestEntryInterface;
 use EightSleep\App\User\Objects\LinkedUserAccountsInterface;
 use EightSleep\App\User\Operations\GetAccountLinkRequestEntryInterface;
+use EightSleep\App\User\Operations\GetSleepIntervalEntryInterface;
 use EightSleep\App\User\Operations\GetUserInterface;
 use EightSleep\Framework\Domain\ClassFactoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -45,6 +46,7 @@ class Provider extends ServiceProvider
         $this->app->bind(AccountLinkRequestEntryInterface::class, AccountLinkRequestEntry::class);
         $this->app->bind(GetAccountLinkRequestEntryInterface::class, GetAccountLinkRequestEntry::class);
         $this->app->bind(LinkedUserAccountsInterface::class, LinkedUserAccounts::class);
+        $this->app->bind(GetSleepIntervalEntryInterface::class, GetSleepIntervalEntry::class);
     }
 
     /**

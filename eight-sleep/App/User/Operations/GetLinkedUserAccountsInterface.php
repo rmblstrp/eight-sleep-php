@@ -8,5 +8,12 @@ interface GetLinkedUserAccountsInterface
 {
     function getById(int $id): ?LinkedUserAccountsInterface;
 
-    function getForLinkedUsers(int $user1, int $user2): ?LinkedUserAccountsInterface;
+    function getForLinkedUsers(int $userId1, int $userId2): ?LinkedUserAccountsInterface;
+
+    /**
+     * @param int $userId
+     *
+     * @return LinkedUserAccountsInterface[]
+     */
+    function getForUser(int $userId): array;
 }
