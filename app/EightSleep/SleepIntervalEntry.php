@@ -35,7 +35,7 @@ class SleepIntervalEntry extends Model implements SleepIntervalEntryInterface
 
     public function getIntervalDateTime(): Carbon
     {
-        return $this->getAttribute('interval_datetime');
+        return Carbon::createFromTimeString($this->getAttribute('interval_datetime'));
     }
 
     public function setIntervalDateTime(Carbon $intervalDateTime): SleepIntervalEntryInterface

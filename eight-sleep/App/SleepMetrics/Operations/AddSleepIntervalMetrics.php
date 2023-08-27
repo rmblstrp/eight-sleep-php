@@ -26,14 +26,16 @@ class AddSleepIntervalMetrics extends AbstractDomainOperation
         $id = intval($sleepInterval->getId());
         $intervalTime = Carbon::createFromTimeString($sleepInterval->getTs());
 
+        $stageIndex = 0;
         foreach ($sleepInterval->getStages() as $stage) {
             $metric = new SleepMetric($id, $intervalTime, 'stage', $stage->getStage(), [
                 'duration' => $stage->getDuration(),
+                'index' => $stageIndex++,
             ]);
             $this->storeMetrics->save($metric);
         }
 
-        $metric = new SleepMetric($id, $intervalTime, 'stage', $sleepInterval->getScore());
+        $metric = new SleepMetric($id, $intervalTime, 'score', $sleepInterval->getScore());
         $this->storeMetrics->save($metric);
 
         $timeSeries = $sleepInterval->getTimeseries();
