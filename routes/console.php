@@ -1,5 +1,6 @@
 <?php
 
+use EightSleep\App\SleepMetrics\Operations\GetSleepIntervalEntryInterface;
 use EightSleep\App\SleepMetrics\SleepSession\V1\GetSleepInterval;
 use EightSleep\App\SleepMetrics\SleepSession\V1\SleepIntervalRequest;
 use EightSleep\Framework\Domain\Objects\DomainActionConfig;
@@ -22,9 +23,14 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-Artisan::command('sleep:interval', function (GetSleepInterval $getSleepInterval, SerializeObjectToJson $serializeObjectToJson) {
-    $userId = 189;
+Artisan::command('sleep:interval', function (
+    GetSleepInterval $getSleepInterval,
+    SerializeObjectToJson $serializeObjectToJson,
+    GetSleepIntervalEntryInterface $getSleepIntervalEntry
+) {
     $intervalId = 1489046760;
+    $sleepInterval = $getSleepIntervalEntry->byIntervalId($intervalId);
+    $userId = $sleepInterval->getUserId();
     $sleepInterval = $getSleepInterval->execute(new SleepIntervalRequest($intervalId), (new DomainActionConfig())->setUserId($userId));
     $this->info($serializeObjectToJson->execute($sleepInterval));
 })->purpose('Display an inspiring quote');
