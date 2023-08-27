@@ -30,11 +30,12 @@ class GetObjectFromServerRequest extends AbstractDomainOperation
      */
     public function execute(string $class, ServerRequestInterface $request): ?object
     {
+        $json = $request->getBody()->getContents();
         $this->logger->debug(self::class . '::execute', [
             'class' => $class,
-            'request' => $request
+            'request' => $request,
+            'json' => $json,
         ]);
-        $json = $request->getBody()->getContents();
         return $this->getObjectFromJson->execute($class, $json);
     }
 }

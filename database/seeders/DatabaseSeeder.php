@@ -60,7 +60,7 @@ class DatabaseSeeder extends Seeder
         $seeds = [
             [
                 'user' => $user1,
-                'file' => 'f9bf229fd19e4c799e8c19a962d73449.json'
+                'file' => '2228b530e055401f81ba37b51ff6f81d.json'
             ],
             [
                 'user' => $user2,
@@ -68,7 +68,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'user' => $user3,
-                'file' => '2228b530e055401f81ba37b51ff6f81d.json'
+                'file' => 'f9bf229fd19e4c799e8c19a962d73449.json'
             ],
         ];
 

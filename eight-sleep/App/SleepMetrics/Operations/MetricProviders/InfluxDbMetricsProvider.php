@@ -23,9 +23,27 @@ final class InfluxDbMetricsProvider extends AbstractDomainOperation implements S
 
     public function save(SleepMetric $sleepMetric): void
     {
-        $additional = $sleepMetric->getAdditional();
-        $additional['value'] = $sleepMetric->getValue();
-        $point = new Point($sleepMetric->getName(), ['id' => (string)$sleepMetric->getId()], $additional, $sleepMetric->getDatetime());
+        $tags = [
+            'id' => (string)$sleepMetric->getId(),
+            'value' => (string)$sleepMetric->getValue(),
+        ];
+
+        foreach ($sleepMetric->getAdditional() as $name => $value) {
+            $tags[$name] = (string)$value;
+        }
+
+        $this->logger->debug('InfluxDbMetricsProvider::save()', [
+            'id' => $sleepMetric->getId(),
+            'timestamp' => $sleepMetric->getDatetime(),
+            'measurement' => $sleepMetric->getName(),
+            'value' => $sleepMetric->getValue(),
+            'additional' => $sleepMetric->getAdditional(),
+            'tags' => $tags,
+        ]);
+
+        $point = new Point($sleepMetric->getName(), $tags, ['hack' => 1], $sleepMetric->getDatetime());
+        $this->logger->debug('InfluxDbMetricsProvider::save()');
+        //$this->logger->debug(var_export($point, true));
 
         $writeApi = $this->influxClient->createWriteApi();
         $writeApi->write($point);

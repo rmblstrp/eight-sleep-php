@@ -21,9 +21,7 @@ class AddSleepIntervalMetrics extends AbstractDomainOperation
 
     public function add(SleepInterval $sleepInterval): void
     {
-        $this->logger->debug('AddSleepIntervalMetrics::add', [
-            'sleepInterval' => $sleepInterval,
-        ]);
+        $this->logger->debug(var_export($sleepInterval, true));
 
         $id = intval($sleepInterval->getId());
         $intervalTime = Carbon::createFromTimeString($sleepInterval->getTs());

@@ -29,7 +29,13 @@ class Provider extends ServiceProvider
     {
         $this->app->bind(ClassFactoryInterface::class, ClassFactory::class);
         $this->app->bind(SerializerInterface::class, function () {
-            return SerializerBuilder::create()->build();
+            return SerializerBuilder::create()
+                ->setPropertyNamingStrategy(
+                    new \JMS\Serializer\Naming\SerializedNameAnnotationStrategy(
+                        new \JMS\Serializer\Naming\IdenticalPropertyNamingStrategy()
+                    )
+                )
+                ->build();
         });
         $this->app->bind(StoreMetricsInterface::class, InfluxDbMetricsProvider::class);
         $this->app->bind(SleepIntervalEntryInterface::class, SleepIntervalEntry::class);

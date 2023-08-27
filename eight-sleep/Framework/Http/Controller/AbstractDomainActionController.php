@@ -63,7 +63,7 @@ abstract class AbstractDomainActionController
      * @param ServerRequestInterface $request
      * @return array
      */
-    public function getDomainLogicParameters(ServerRequestInterface $request): array
+    public function getDomainActionParameters(ServerRequestInterface $request): array
     {
         return [];
     }
@@ -81,7 +81,7 @@ abstract class AbstractDomainActionController
         /** @var DomainActionInterface $requestLogic */
         $requestLogic = $this->classFactory->make(
             $this->getDomainActionClass(),
-            $this->getDomainLogicParameters($request)
+            $this->getDomainActionParameters($request)
         );
 
         $this->logger->debug(static::class . '::handle - Executing Domain Logic');
