@@ -9,7 +9,7 @@
         "aws/aws-sdk-php": "^3.279",
         "giggsey/libphonenumber-for-php": "^8.13",
         "guzzlehttp/guzzle": "^7.7",
-        "inertiajs/inertia-laravel": "^0.6.9",
+        "inertiajs/inertia-laravel": "^0.6.8",
         "influxdata/influxdb-client-php": "^3.4",
         "jms/serializer": "^3.27",
         "laravel/framework": "^10.10",
