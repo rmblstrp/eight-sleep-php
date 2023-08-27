@@ -18,7 +18,7 @@ class AddAccountLinkRequestEntry extends AbstractDomainOperation
         $this->classFactory = $classFactory;
     }
 
-    public function add(int $requestingUserId, int $invitedUserId): void
+    public function add(int $requestingUserId, int $invitedUserId): int
     {
         $this->logger->debug('AddAccountLinkRequestEntry::add()', [
             'requestingUserId' => $requestingUserId,
@@ -28,8 +28,10 @@ class AddAccountLinkRequestEntry extends AbstractDomainOperation
         /** @var AccountLinkRequestEntryInterface $accountLinkingRequest */
         $accountLinkingRequest = $this->classFactory->make(AccountLinkRequestEntryInterface::class);
         $accountLinkingRequest
-            ->setRequestingUserId($requestingUserId)
+            ->setOriginatingUserId($requestingUserId)
             ->setInvitedUserId($invitedUserId)
             ->persist();
+
+        return $accountLinkingRequest->getId();
     }
 }

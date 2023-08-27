@@ -9,8 +9,8 @@ interface AccountLinkRequestEntryInterface extends PersistableModelInterface, De
 {
     function getId(): int;
 
-    function getRequestingUserId(): int;
-    function setRequestingUserId(int $requestingUserId): AccountLinkRequestEntryInterface;
+    function getOriginatingUserId(): int;
+    function setOriginatingUserId(int $requestingUserId): AccountLinkRequestEntryInterface;
 
     function getInvitedUserId(): int;
     function setInvitedUserId(int $invitedUserId): AccountLinkRequestEntryInterface;

@@ -36,8 +36,10 @@ class CompleteAccountLinking extends AbstractDomainAction
         $entry = $this->getAccountLinkRequestEntry->getById($accountLinkRequestEntry->getId());
 
         if ($entry instanceof AccountLinkRequestEntryInterface) {
-            $this->linkUserAccounts->link();
-            $this->deleteAccountLinkRequestEntry->delete($config->getUserId(), $accountLinkRequestEntry->getId());
+            if ($entry->getInvitedUserId() === $config->getUserId()) {
+                $this->linkUserAccounts->link($entry->getOriginatingUserId(), $config->getUserId());
+                $this->deleteAccountLinkRequestEntry->delete($config->getUserId(), $accountLinkRequestEntry->getId());
+            }
         }
 
         return null;

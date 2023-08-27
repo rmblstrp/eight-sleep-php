@@ -22,12 +22,12 @@ class LinkedUserAccounts extends Model implements LinkedUserAccountsInterface
 
     function getLinkedUserId(): int
     {
-        return $this->getAttributeValue('invited_user_id');
+        return $this->getAttributeValue('linked_user_id');
     }
 
     function setLinkedUserId(int $linkedUserId): LinkedUserAccountsInterface
     {
-        $this->setAttribute('invited_user_id', $linkedUserId);
+        $this->setAttribute('linked_user_id', $linkedUserId);
         return $this;
     }
 

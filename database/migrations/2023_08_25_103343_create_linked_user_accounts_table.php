@@ -17,10 +17,10 @@ return new class extends Migration
             $table->unsignedBigInteger('linked_user_id')->index();
             $table->timestamps();
 
-            $table->foreign('originating_user_id', 'fk_originating_user_id')
+            $table->foreign('originating_user_id')
                 ->references('id')->on('users')
                 ->onUpdate('cascade');
-            $table->foreign('linked_user_id', 'fk_linked_user_id')
+            $table->foreign('linked_user_id')
                 ->references('id')->on('users')
                 ->onUpdate('cascade');
         });

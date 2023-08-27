@@ -34,8 +34,10 @@ class InitiateAccountLinking extends AbstractDomainAction
     {
         $invitedUser = $this->userEmailExists->byEmail($request->getEmail());
         if ($invitedUser instanceof UserInterface) {
-            $this->addAccountLinkRequestEntry->add($config->getUserId(), $invitedUser->getId());
+            $entryId = $this->addAccountLinkRequestEntry->add($config->getUserId(), $invitedUser->getId());
             $this->sendAccountLinkNotification->send($invitedUser->getId());
+
+            return new AccountLinkRequestEntry($entryId);
         }
 
         return null;

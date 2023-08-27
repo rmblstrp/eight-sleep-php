@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('account_link_request_entry', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('requesting_user_id');
+            $table->unsignedBigInteger('originating_user_id');
             $table->unsignedBigInteger('invited_user_id');
             $table->timestamps();
 
-            $table->foreign('requesting_user_id', 'fk_requesting_user_id')
+            $table->foreign('originating_user_id')
                 ->references('id')->on('users')
                 ->onUpdate('cascade');
-            $table->foreign('invited_user_id', 'fk_invited_user_id')
+            $table->foreign('invited_user_id')
                 ->references('id')->on('users')
                 ->onUpdate('cascade');
         });

@@ -7,10 +7,12 @@ use App\Models\User;
 use Carbon\Carbon;
 use EightSleep\App\SleepMetrics\SleepSession\V1\IngestSessionData;
 use EightSleep\App\SleepMetrics\SleepSession\V1\SessionData;
+use EightSleep\App\User\LinkAccounts\V1\AccountLinkRequestEntry;
 use EightSleep\App\User\LinkAccounts\V1\RequestAccountLinking;
 use EightSleep\App\User\LinkAccounts\V1\CancelAccountLinking;
 use EightSleep\App\User\LinkAccounts\V1\CompleteAccountLinking;
 use EightSleep\App\User\LinkAccounts\V1\InitiateAccountLinking;
+use EightSleep\App\User\Operations\LinkUserAccounts;
 use EightSleep\Framework\Domain\Objects\DomainActionConfig;
 use EightSleep\Framework\Serialization\Json\Operation\GetObjectFromJson;
 use Illuminate\Database\Seeder;
@@ -70,12 +72,16 @@ class DatabaseSeeder extends Seeder
             ],
         ];
 
+        $inviteEntryIds = [];
+
         /** @var InitiateAccountLinking $initiateAccountLinking */
         $initiateAccountLinking = app()->make(InitiateAccountLinking::class);
         /** @var CompleteAccountLinking $completeAccountLinking */
         $completeAccountLinking = app()->make(CompleteAccountLinking::class);
         /** @var CancelAccountLinking $cancelAccountLinking */
         $cancelAccountLinking = app()->make(CancelAccountLinking::class);
+        /** @var LinkUserAccounts $linkUserAccounts */
+        $linkUserAccounts = app()->make(LinkUserAccounts::class);
 
         foreach ($seeds as $item) {
             /** @var User $user */
@@ -90,11 +96,14 @@ class DatabaseSeeder extends Seeder
             $sessionAction = app()->make(IngestSessionData::class);
             $sessionAction->execute($session, (new DomainActionConfig())->setUserId($user->getId()));
 
-            $initiateAccountLinking->execute(new RequestAccountLinking($user->getEmail()), (new DomainActionConfig())->setUserId($user4->getId()));
-            $initiateAccountLinking->execute(new RequestAccountLinking($user4->getEmail()), (new DomainActionConfig())->setUserId($user->getId()));
+            $inviteEntryIds[$user->getId()] = $initiateAccountLinking->execute(new RequestAccountLinking($user->getEmail()), (new DomainActionConfig())->setUserId($user4->getId()));
         }
 
-        $completeAccountLinking->execute(null, (new DomainActionConfig())->setUserId($user1->getId()));
-        $cancelAccountLinking->execute(null, (new DomainActionConfig())->setUserId($user2->getId()));
+        $linkUserAccounts->link($user1->getId(), $user2->getId());
+        $linkUserAccounts->link($user2->getId(), $user3->getId());
+        $linkUserAccounts->link($user3->getId(), $user1->getId());
+
+        $completeAccountLinking->execute(new AccountLinkRequestEntry($inviteEntryIds[$user1->getId()]->getId()), (new DomainActionConfig())->setUserId($user1->getId()));
+        $cancelAccountLinking->execute(new AccountLinkRequestEntry($inviteEntryIds[$user2->getId()]->getId()), (new DomainActionConfig())->setUserId($user2->getId()));
     }
 }
