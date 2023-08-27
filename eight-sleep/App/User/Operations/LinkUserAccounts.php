@@ -11,26 +11,34 @@ use Psr\Log\LoggerInterface;
 class LinkUserAccounts extends AbstractDomainOperation
 {
     private ClassFactoryInterface $classFactory;
+    private GetLinkedUserAccountsInterface $getLinkedUserAccounts;
 
-    public function __construct(LoggerInterface $logger, ClassFactoryInterface $classFactory)
+    public function __construct(
+        LoggerInterface $logger,
+        ClassFactoryInterface $classFactory,
+        GetLinkedUserAccountsInterface $getLinkedUserAccounts
+    )
     {
         parent::__construct($logger);
 
         $this->classFactory = $classFactory;
+        $this->getLinkedUserAccounts = $getLinkedUserAccounts;
     }
 
-    public function link(int $originatingUserId, int $invitedUserId): void
+    public function link(int $originatingUserId, int $linkedUserId): void
     {
         $this->logger->debug('AddAccountLinkRequestEntry::add()', [
             'originatingUserId' => $originatingUserId,
-            'invitedUserId'    => $invitedUserId,
+            'invitedUserId'    => $linkedUserId,
         ]);
+
+        if (!empty($this->getLinkedUserAccounts->getForLinkedUsers($originatingUserId, $linkedUserId))) return;
 
         /** @var LinkedUserAccountsInterface $linkedUserAccounts */
         $linkedUserAccounts = $this->classFactory->make(LinkedUserAccountsInterface::class);
         $linkedUserAccounts
             ->setOriginatingUserId($originatingUserId)
-            ->setLinkedUserId($invitedUserId)
+            ->setLinkedUserId($linkedUserId)
             ->persist();
     }
 }

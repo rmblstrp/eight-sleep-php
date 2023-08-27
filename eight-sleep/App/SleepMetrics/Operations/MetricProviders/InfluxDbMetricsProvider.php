@@ -3,6 +3,7 @@
 namespace EightSleep\App\SleepMetrics\Operations\MetricProviders;
 
 use Carbon\Carbon;
+use EightSleep\App\SleepMetrics\Objects\SleepMetric;
 use EightSleep\App\SleepMetrics\Operations\StoreMetricsInterface;
 use EightSleep\Framework\Domain\Operations\AbstractDomainOperation;
 use InfluxDB2\Client as InfluxClient;
@@ -20,18 +21,11 @@ final class InfluxDbMetricsProvider extends AbstractDomainOperation implements S
         $this->influxClient = $influxClient;
     }
 
-    public function save(string $id, Carbon $timestamp, string $measurement, $value, array $attributes = []): void
+    public function save(SleepMetric $sleepMetric): void
     {
-        $this->logger->debug('InfluxDbMetricsProvider::save()', [
-            'id' => $id,
-            'timestamp' => $timestamp->toISOString(),
-            'measurement' => $measurement,
-            'value' => $value,
-            'attributes' => $attributes,
-        ]);
-
-        $attributes['value'] = $value;
-        $point = new Point($measurement, ['id' => $id], $attributes, $timestamp);
+        $additional = $sleepMetric->getAdditional();
+        $additional['value'] = $sleepMetric->getValue();
+        $point = new Point($sleepMetric->getName(), ['id' => (string)$sleepMetric->getId()], $additional, $sleepMetric->getDatetime());
 
         $writeApi = $this->influxClient->createWriteApi();
         $writeApi->write($point);

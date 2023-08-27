@@ -4,8 +4,7 @@ namespace App\EightSleep;
 
 use EightSleep\App\User\Objects\LinkedUserAccountsInterface;
 use EightSleep\App\User\Operations\GetLinkedUserAccountsInterface;
-use EightSleep\App\User\Operations\LinkUserAccounts;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 
 class GetLinkedUserAccounts implements GetLinkedUserAccountsInterface
 {
@@ -17,7 +16,7 @@ class GetLinkedUserAccounts implements GetLinkedUserAccountsInterface
 
     function getForLinkedUsers(int $userId1, int $userId2): ?LinkedUserAccountsInterface
     {
-        return LinkUserAccounts::where(function (Builder $query) use ($userId1, $userId2) {
+        return LinkedUserAccounts::where(function (Builder $query) use ($userId1, $userId2) {
             $query
                 ->where('originating_user_id', $userId1)
                 ->orWhere('linked_user_id', $userId2);
@@ -28,7 +27,7 @@ class GetLinkedUserAccounts implements GetLinkedUserAccountsInterface
         })->first();
     }
 
-    function getForUser(int $userId): ?LinkedUserAccountsInterface
+    function getForUser(int $userId): array
     {
         return LinkedUserAccounts::where('originating_user_id', $userId)
             ->orWhere('linked_user_id', $userId)
