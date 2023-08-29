@@ -3,6 +3,7 @@
 use App\Models\User;
 use EightSleep\App\SleepMetrics\SleepSession\V1\GetSleepIntervalController;
 use EightSleep\App\SleepMetrics\SleepSession\V1\IngestSessionDataController;
+use EightSleep\App\SleepMetrics\SleepSession\V1\ListSleepIntervalsController;
 use EightSleep\App\User\LinkAccounts\V1\CancelAccountLinkingController;
 use EightSleep\App\User\LinkAccounts\V1\CompleteAccountLinkingController;
 use EightSleep\App\User\LinkAccounts\V1\InitiateAccountLinkingController;
@@ -27,7 +28,8 @@ use Illuminate\Support\Facades\Validator;
 
 Route::middleware(['auth:sanctum', 'request.user'])->group(function () {
     Route::post('/v1/sleep/session', [IngestSessionDataController::class, 'handle']);
-    Route::post('/v1/sleep/interval', [GetSleepIntervalController::class, 'handle']);
+    Route::get('/v1/sleep/interval/list', [ListSleepIntervalsController::class, 'handle']);
+    Route::get('/v1/sleep/interval', [GetSleepIntervalController::class, 'handle']);
     Route::get('/v1/user/link', [ListLinkedUserAccountsController::class, 'handle']);
     Route::get('/v1/user/link/request', [ListAccountLinkRequestsController::class, 'handle']);
     Route::post('/v1/user/link/request', [InitiateAccountLinkingController::class, 'handle']);

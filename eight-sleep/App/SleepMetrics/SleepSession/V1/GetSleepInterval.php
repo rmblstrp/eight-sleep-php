@@ -8,38 +8,41 @@ use EightSleep\App\SleepMetrics\Operations\GetSleepIntervalFromMetrics;
 use EightSleep\App\SleepMetrics\Operations\ReadMetricsInterface;
 use EightSleep\App\User\Objects\LinkedUserAccountsInterface;
 use EightSleep\App\User\Operations\GetLinkedUserAccountsInterface;
+use EightSleep\App\User\Operations\UserAccountsAreLinked;
 use EightSleep\Framework\Domain\Actions\AbstractDomainAction;
 use EightSleep\Framework\Domain\Objects\DomainActionConfig;
 use Psr\Log\LoggerInterface;
 
 class GetSleepInterval extends AbstractDomainAction
 {
-    private GetLinkedUserAccountsInterface $getLinkedUserAccounts;
+    private UserAccountsAreLinked $userAccountsAreLinked;
     private GetSleepIntervalEntryInterface $getSleepIntervalEntry;
     private ReadMetricsInterface $readMetrics;
 
     public function __construct(
         LoggerInterface $logger,
-        GetLinkedUserAccountsInterface $getLinkedUserAccounts,
+        UserAccountsAreLinked $userAccountsAreLinked,
         GetSleepIntervalEntryInterface $getSleepIntervalEntry,
         ReadMetricsInterface $readMetrics
     )
     {
         parent::__construct($logger);
 
-        $this->getLinkedUserAccounts = $getLinkedUserAccounts;
+        $this->userAccountsAreLinked = $userAccountsAreLinked;
         $this->getSleepIntervalEntry = $getSleepIntervalEntry;
         $this->readMetrics = $readMetrics;
     }
 
     protected function handle(SleepIntervalRequest $sleepIntervalRequest, DomainActionConfig $config): ?object
     {
-        $targetUserId = $config->getUserId();
+        $targetUserId =$config->getUserId();
 
         if (!empty($sleepIntervalRequest->getLinkedUserId())) {
-            $linkedUserAccounts = $this->getLinkedUserAccounts->getForLinkedUsers($config->getUserId(), $sleepIntervalRequest->getLinkedUserId());
-            if ($linkedUserAccounts instanceof LinkedUserAccountsInterface) {
+            if ($this->userAccountsAreLinked->isTrue($config->getUserId(), $sleepIntervalRequest->getLinkedUserId())) {
                 $targetUserId = $sleepIntervalRequest->getLinkedUserId();
+            }
+            else {
+                throw new \Exception('Users are not linked');
             }
         }
 

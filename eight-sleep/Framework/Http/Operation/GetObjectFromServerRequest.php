@@ -7,6 +7,7 @@ namespace EightSleep\Framework\Http\Operation;
 use EightSleep\Framework\Domain\ClassFactoryInterface;
 use EightSleep\Framework\Domain\Operations\AbstractDomainOperation;
 use EightSleep\Framework\Serialization\Json\Operation\GetObjectFromJson;
+use Nyholm\Psr7\Uri;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
 
@@ -32,7 +33,11 @@ class GetObjectFromServerRequest extends AbstractDomainOperation
     public function execute(string $class, ServerRequestInterface $request): ?object
     {
         if ($request->getMethod() === 'GET' || $request->getMethod() === 'DELETE') {
-            return $this->getObjectFromJson->execute($class, json_encode($request->getQueryParams()));
+            $severParameters = $request->getServerParams();
+            $uri = new Uri($severParameters['REQUEST_URI']);
+            \parse_str($uri->getQuery(), $parameters);
+            $this->logger->debug('Getting parameters from query string', $parameters);
+            return $this->getObjectFromJson->execute($class, json_encode($parameters));
         }
 
         $contentTypeHeaders = $request->getHeader('Content-Type');

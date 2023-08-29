@@ -4,17 +4,15 @@ namespace EightSleep\App\SleepMetrics\SleepSession\V1;
 
 class ListSleepIntervalRange
 {
-    private string $from;
-    private string $to;
+    private string $from = '';
+    private string $to = '';
+    private ?int $linkedUserId = null;
 
-    /**
-     * @param string $from
-     * @param string $to
-     */
-    public function __construct(string $from = '', string $to = '')
+    public function __construct(string $from = '', string $to = '', ?int $linkedUserId = null)
     {
         $this->from = $from;
         $this->to = $to;
+        $this->linkedUserId = $linkedUserId;
     }
 
     public function getFrom(): string
@@ -25,5 +23,10 @@ class ListSleepIntervalRange
     public function getTo(): string
     {
         return $this->to;
+    }
+
+    public function getLinkedUserId(): ?int
+    {
+        return $this->linkedUserId;
     }
 }

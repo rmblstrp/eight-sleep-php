@@ -4,7 +4,7 @@ namespace EightSleep\App\SleepMetrics\SleepSession\V1;
 
 class SleepIntervalRequest
 {
-    private int $intervalId;
+    private int $intervalId = -1;
     private ?int $linkedUserId = null;
 
     /**
