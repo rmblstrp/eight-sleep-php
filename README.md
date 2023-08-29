@@ -7,6 +7,7 @@
 - Write code that is easily maintainable, readable, testable, understandable
 - Use a time series datastore for metrics
   - Make for minimal code changes when switching to a different datastore
+- Demonstrate some level of devops competence
 
 ## Prerequisites
 It is recommended to install PhpStorm, or similar environment, in order to facilitate easier
@@ -109,3 +110,15 @@ Here are the critical file paths to help you focus and review the code I generat
 <root>/resources/js/components/SleepTemperature.vue
 <root>/resources/js/components/SleepTossAndTurn.vue
 ```
+
+## Plan
+- Setup a development environment using Docker containers define using `docker-compose.yml`
+  - php
+  - nginx
+  - influxdb
+  - sqlserver
+  - memsql (now single store)
+- Implement a backend that satisfies the challenge requirements
+- Implement a frontend that satisfies the challenge requirements
+- Do the whole thing again in C# to show how awesome I am
+  - NOTE: Because C# is my favorite language and I wanted to dust off the rust
