@@ -5,6 +5,7 @@ import SleepStages from "@/components/SleepStages.vue";
 import SleepHeartRate from "@/components/SleepHeartRate.vue";
 import SleepTemperature from "@/components/SleepTemperature.vue";
 import SleepTossAndTurn from "@/components/SleepTossAndTurn.vue";
+import {watch} from "vue";
 
 console.log("<SleepInterval>");
 const {id, httpConfig} = defineProps({
@@ -21,6 +22,8 @@ const interval =  (await axios.get('/sleep/interval?id=' + id, httpConfig)).data
 console.log('SleepInterval::interval', interval);
 const intervalDate = new Date(interval.ts);
 console.log('SleepInterval::intervalDate', intervalDate, typeof intervalDate);
+
+
 </script>
 
 <template>
