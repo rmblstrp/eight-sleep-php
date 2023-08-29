@@ -63,6 +63,8 @@ Route::post('/v1/auth/login', function (Request $request) {
         $user = User::where('email', $request->email)->first();
 
         return response()->json([
+            'name' => Auth::user()->getName(),
+            'id' => Auth::user()->getId(),
             'status'  => true,
             'message' => 'User Logged In Successfully',
             'token'   => $user->createToken("API TOKEN")->plainTextToken,

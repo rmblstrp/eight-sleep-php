@@ -39,6 +39,8 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('api-token', function () {
         return response()->json([
+            'name' => Auth::user()->getName(),
+            'id' => Auth::user()->getId(),
             'status'  => true,
             'message' => 'User Logged In Successfully',
             'token'   => Auth::user()->createToken("API TOKEN")->plainTextToken,
