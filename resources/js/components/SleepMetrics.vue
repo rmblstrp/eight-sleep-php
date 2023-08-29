@@ -1,13 +1,14 @@
 <script setup>
-
-import axios from "axios";
-import {ref} from "vue";
-
-const apiToken = (await axios.get('/api-token')).data;
+const { apiToken } = defineProps({
+  apiToken: {
+    type: String,
+    required: true
+  }
+})
 </script>
 
 <template>
-
+ {{ apiToken }}
 </template>
 
 <style scoped>
