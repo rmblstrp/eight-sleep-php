@@ -1,4 +1,19 @@
 <script setup>
+import {Line} from 'vue-chartjs'
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement
+} from 'chart.js'
+
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement)
+
 console.log("<SleepStages>");
 const {stages, date} = defineProps({
   stages: {
@@ -12,12 +27,66 @@ const {stages, date} = defineProps({
 });
 console.log('SleepStages::date', date);
 console.log('SleepStages::stages', stages);
+
 let baseTimestamp = date.getTime();
-for (let index = 0; index < stages.length; index++) {
-  stages[index].time = new Date(baseTimestamp);
-  baseTimestamp += stages[index].duration * 1000;
-}
-console.log('SleepStages::stages updated', stages);
+const stageDates = [];
+const stageValues = [];
+stages.forEach(item => {
+  let date =  new Date(baseTimestamp);
+  let hour = date.getHours() < 10 ? '0' + date.getHours() : date.getHours();
+  let minute = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+  let dateString = hour + ':' + minute;
+  baseTimestamp += item.duration * 1000;
+
+  stageDates.push(dateString);
+  switch (item.stage) {
+    case 'out':
+      stageValues.push(4);
+      break;
+    case 'awake':
+      stageValues.push(3);
+      break;
+    case 'light':
+      stageValues.push(2);
+      break;
+    case 'deep':
+      stageValues.push(1);
+      break;
+  }
+});
+console.log('SleepStages::stageDates', stageDates);
+console.log('SleepStages::stageValues', stageValues);
+
+const stageData = {
+  labels: stageDates,
+  datasets: [{
+    label: 'Sleep Stage',
+    data: stageValues,
+    fill: false,
+    stepped: true,
+    borderColor: 'rgba(0, 0, 0, 0.5)',
+    tension: 0.1
+  }]
+};
+
+const chartOptions = {
+  legend: {
+    display: false
+  },
+  responsive: true,
+  interaction: {
+    intersect: false,
+    axis: 'x'
+  },
+  y: {
+    min: 0,
+    max: 4,
+    ticks: {
+      // forces step size to be 50 units
+      stepSize: 1
+    }
+  }
+};
 </script>
 
 <template>
@@ -25,12 +94,10 @@ console.log('SleepStages::stages updated', stages);
     <div>
       <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-gray-400">Stages</h2>
 
-      <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-        <div v-for="metric in stages">
-          <div>{{ metric.stage }}</div>
-          <div>{{ metric.time }}</div>
-        </div>
-      </p>
+      <Line
+          :options="chartOptions"
+          :data="stageData"
+      />
     </div>
   </div>
 </template>

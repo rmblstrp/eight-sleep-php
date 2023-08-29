@@ -72,7 +72,7 @@ const bedTemperatureData = {
     label: 'Bed',
     data: bedTemperatureValues,
     fill: false,
-    borderColor: 'rgba(54, 162, 235, 0.25',
+    borderColor: 'rgba(54, 162, 235, 0.25)',
     tension: 0.1
   }]
 };

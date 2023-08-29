@@ -26,10 +26,10 @@ const chartData = {
     data: [score],
     fill: false,
     backgroundColor: [
-      'rgba(255, 99, 132, 0.2)'
+      'rgba(75, 192, 192, 0.2)'
     ],
     borderColor: [
-      'rgb(255, 99, 132)'
+      'rgb(75, 192, 192)'
     ],
     borderWidth: 1
   }]

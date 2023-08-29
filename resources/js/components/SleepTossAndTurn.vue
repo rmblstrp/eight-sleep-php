@@ -1,5 +1,5 @@
 <script setup>
-import {Line, Scatter} from 'vue-chartjs'
+import {Line} from 'vue-chartjs'
 import {
   Chart as ChartJS,
   Title,
@@ -49,7 +49,7 @@ const tntData = {
     label: 'Toss and Turn',
     data: tntValues,
     fill: false,
-    borderColor: 'rgba(255, 99, 132, 0.5)',
+    borderColor: 'rgba(0, 0, 0, 0.5)',
     tension: 0.1
   }]
 };
