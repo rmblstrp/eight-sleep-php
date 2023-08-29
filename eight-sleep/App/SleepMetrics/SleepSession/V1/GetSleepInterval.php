@@ -46,9 +46,9 @@ class GetSleepInterval extends AbstractDomainAction
             }
         }
 
-        $sleepIntervalEntry = $this->getSleepIntervalEntry->byIntervalId($sleepIntervalRequest->getIntervalId(), $targetUserId);
+        $sleepIntervalEntry = $this->getSleepIntervalEntry->byIntervalId($sleepIntervalRequest->getId(), $targetUserId);
         if ($sleepIntervalEntry instanceof SleepIntervalEntryInterface) {
-            $sleepInterval = $this->readMetrics->getByIntervalId($sleepIntervalRequest->getIntervalId(), $sleepIntervalEntry->getIntervalDateTime());
+            $sleepInterval = $this->readMetrics->getByIntervalId($sleepIntervalRequest->getId(), $sleepIntervalEntry->getIntervalDateTime());
             $this->logger->debug(var_export($sleepInterval, true));
             return $sleepInterval;
         }
