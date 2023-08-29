@@ -2,6 +2,9 @@
 import axios from "axios";
 import SleepScore from "@/components/SleepScore.vue";
 import SleepStages from "@/components/SleepStages.vue";
+import SleepHeartRate from "@/components/SleepHeartRate.vue";
+import SleepTemperature from "@/components/SleepTemperature.vue";
+import SleepTossAndTurn from "@/components/SleepTossAndTurn.vue";
 
 console.log("<SleepInterval>");
 const {id, httpConfig} = defineProps({
@@ -23,6 +26,9 @@ console.log('SleepInterval::intervalDate', intervalDate, typeof intervalDate);
 <template>
     <SleepScore :date="intervalDate" :score="interval.score" />
     <SleepStages :date="intervalDate" :stages="interval.stages" />
+    <SleepHeartRate :respiratory-rate="interval.timeseries.respiratoryRate" :heart-rate="interval.timeseries.heartRate" />
+    <SleepTemperature :bed="interval.timeseries.tempBedC" :room="interval.timeseries.tempBedC" />
+    <SleepTossAndTurn :tnt="interval.timeseries.tnt" />
 </template>
 
 <style scoped>
