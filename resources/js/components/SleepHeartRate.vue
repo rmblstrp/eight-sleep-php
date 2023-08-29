@@ -80,6 +80,20 @@ const chartOptions = {
   legend: {
     display: false
   },
+  responsive: true,
+  scales: {
+    y: {
+      ticks: {
+        // forces step size to be 50 units
+        stepSize: 5
+      }
+    }
+  },
+};
+const respiratoryOption = {
+  legend: {
+    display: false
+  },
   responsive: true
 };
 </script>
@@ -93,7 +107,7 @@ const chartOptions = {
           :data="heartRateData"
       />
       <Line
-          :options="chartOptions"
+          :options="respiratoryOption"
           :data="respiratoryRateData"
       />
     </div>
