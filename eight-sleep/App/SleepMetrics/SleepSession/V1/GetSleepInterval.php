@@ -38,6 +38,7 @@ class GetSleepInterval extends AbstractDomainAction
         $targetUserId =$config->getUserId();
 
         if (!empty($sleepIntervalRequest->getLinkedUserId())) {
+            $this->logger->debug('GetSleepInterval::handle - Checking if user accounts are linked');
             if ($this->userAccountsAreLinked->isTrue($config->getUserId(), $sleepIntervalRequest->getLinkedUserId())) {
                 $targetUserId = $sleepIntervalRequest->getLinkedUserId();
             }

@@ -46,6 +46,7 @@ const httpConfig = {
 console.log('LoadUserData::httpConfig', httpConfig);
 
 const selectedUserIndex = ref(0);
+const selectedUserId = ref(userId);
 let userIndex = 0;
 const userList = [
   {
@@ -88,10 +89,13 @@ for (let index in linkedUsers) {
 }
 console.log('LoadUserData::userList', userList);
 
+const useUserId = ref(false);
 function selectedUserChanged() {
   console.log('LoadUserData::selectedUserChanged', selectedUserIndex.value);
   intervalIndex = 0;
   selectedIntervalId.value = userList[selectedUserIndex.value].intervalIds[intervalIndex];
+  selectedUserId.value = userList[selectedUserIndex.value].id;
+  useUserId.value = selectedUserIndex.value != 0;
   forceRerender()
 }
 </script>
@@ -115,7 +119,7 @@ function selectedUserChanged() {
   </div>
   <div>
     <Suspense :key="componentKey">
-      <SleepInterval :id="selectedIntervalId" :http-config="httpConfig" :key="componentKey" />
+      <SleepInterval :id="selectedIntervalId" :http-config="httpConfig" :key="componentKey" :user-id="selectedUserId" :use-user-id="useUserId" />
       <template #fallback>
         <div class="sm:justify-center" style="margin-top: 50px">
           <SyncLoader></SyncLoader>
