@@ -1,4 +1,9 @@
 <script setup>
+import {Bar} from 'vue-chartjs'
+import {Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale} from 'chart.js'
+
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+
 console.log("<SleepScore>");
 const {score, date} = defineProps({
   score: {
@@ -12,16 +17,40 @@ const {score, date} = defineProps({
 })
 console.log('SleepScore::date', date);
 console.log('SleepScore::score', score);
+
+const chartData = {
+  labels: [''],
+  datasets: [{
+    label: date.toDateString(),
+    axis: 'y',
+    data: [score],
+    fill: false,
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.2)'
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)'
+    ],
+    borderWidth: 1
+  }]
+};
+const chartOptions = {
+  legend: {
+    display: false
+  },
+  responsive: true,
+  indexAxis: 'y'
+};
 </script>
 
 <template>
   <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
     <div>
       <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-gray-400">Score</h2>
-
-      <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-        {{ score }}
-      </p>
+      <Bar
+          :options="chartOptions"
+          :data="chartData"
+      />
     </div>
   </div>
 </template>
