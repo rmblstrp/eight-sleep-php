@@ -19,6 +19,10 @@ class DeleteAccountLinkRequestEntry extends AbstractDomainOperation
 
     public function delete(int $userId, int $accountLinkRequestEntryId): void
     {
+        $this->logger->debug('DeleteAccountLinkRequestEntry::delete()', [
+            'userId' => $userId,
+            'accountLinkRequestEntryId' => $accountLinkRequestEntryId,
+        ]);
         $accountLinkRequestEntry = $this->getAccountLinkRequestEntry->getById($accountLinkRequestEntryId);
         if (!($accountLinkRequestEntry instanceof AccountLinkRequestEntryInterface)) return;
         if ($accountLinkRequestEntry->getInvitedUserId() !== $userId) return;

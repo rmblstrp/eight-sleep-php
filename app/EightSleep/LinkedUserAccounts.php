@@ -4,6 +4,7 @@ namespace App\EightSleep;
 
 use EightSleep\App\User\Objects\LinkedUserAccountsInterface;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class LinkedUserAccounts extends Model implements LinkedUserAccountsInterface
 {
@@ -38,6 +39,7 @@ class LinkedUserAccounts extends Model implements LinkedUserAccountsInterface
 
     function delete(): void
     {
+        Log::debug('LinkedUserAccounts::delete()');
         parent::delete();
     }
 }

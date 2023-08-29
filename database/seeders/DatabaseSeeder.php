@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
         DB::delete('delete from sleep_interval_entry');
         DB::delete('delete from linked_user_accounts');
         DB::delete('delete from account_link_request_entry');
+        DB::delete('delete from personal_access_tokens');
         DB::delete('delete from users');
         /** @var Client $influx */
         $influx = app()->make(Client::class);

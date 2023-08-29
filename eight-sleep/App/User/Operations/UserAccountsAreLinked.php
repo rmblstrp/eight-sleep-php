@@ -19,6 +19,11 @@ class UserAccountsAreLinked extends AbstractDomainOperation
 
     public function isTrue(int $userId, int $linkedUserId): bool
     {
+        $this->logger->debug('UserAccountsAreLinked::isTrue()', [
+            'userId' => $userId,
+            'linkedUserId'    => $linkedUserId,
+        ]);
+
         $linkedUserAccounts = $this->getLinkedUserAccounts->getForLinkedUsers($userId, $linkedUserId);
         return $linkedUserAccounts instanceof LinkedUserAccountsInterface;
     }

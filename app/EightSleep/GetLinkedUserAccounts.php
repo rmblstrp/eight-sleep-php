@@ -19,11 +19,11 @@ class GetLinkedUserAccounts implements GetLinkedUserAccountsInterface
         return LinkedUserAccounts::where(function (Builder $query) use ($userId1, $userId2) {
             $query
                 ->where('originating_user_id', $userId1)
-                ->orWhere('linked_user_id', $userId2);
+                ->where('linked_user_id', $userId2);
         })->orWhere(function (Builder $query) use ($userId1, $userId2) {
             $query
                 ->where('originating_user_id', $userId2)
-                ->orWhere('linked_user_id', $userId1);
+                ->where('linked_user_id', $userId1);
         })->first();
     }
 

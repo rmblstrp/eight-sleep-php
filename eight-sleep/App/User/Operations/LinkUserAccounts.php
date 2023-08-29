@@ -11,18 +11,18 @@ use Psr\Log\LoggerInterface;
 class LinkUserAccounts extends AbstractDomainOperation
 {
     private ClassFactoryInterface $classFactory;
-    private GetLinkedUserAccountsInterface $getLinkedUserAccounts;
+    private UserAccountsAreLinked $userAccountsAreLinked;
 
     public function __construct(
         LoggerInterface $logger,
         ClassFactoryInterface $classFactory,
-        GetLinkedUserAccountsInterface $getLinkedUserAccounts
+        UserAccountsAreLinked $userAccountsAreLinked
     )
     {
         parent::__construct($logger);
 
         $this->classFactory = $classFactory;
-        $this->getLinkedUserAccounts = $getLinkedUserAccounts;
+        $this->userAccountsAreLinked = $userAccountsAreLinked;
     }
 
     public function link(int $originatingUserId, int $linkedUserId): void
@@ -32,7 +32,7 @@ class LinkUserAccounts extends AbstractDomainOperation
             'invitedUserId'    => $linkedUserId,
         ]);
 
-        if (!empty($this->getLinkedUserAccounts->getForLinkedUsers($originatingUserId, $linkedUserId))) return;
+        if ($this->userAccountsAreLinked->isTrue($originatingUserId, $linkedUserId)) return;
 
         /** @var LinkedUserAccountsInterface $linkedUserAccounts */
         $linkedUserAccounts = $this->classFactory->make(LinkedUserAccountsInterface::class);
@@ -40,5 +40,8 @@ class LinkUserAccounts extends AbstractDomainOperation
             ->setOriginatingUserId($originatingUserId)
             ->setLinkedUserId($linkedUserId)
             ->persist();
+
+        $this->logger->debug('PERSISTED');
+        $this->logger->debug(var_export($linkedUserAccounts, true));
     }
 }

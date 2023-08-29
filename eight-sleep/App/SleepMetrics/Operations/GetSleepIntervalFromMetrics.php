@@ -21,6 +21,10 @@ class GetSleepIntervalFromMetrics extends AbstractDomainOperation
 
     public function get(int $intervalId): array
     {
+        $this->logger->debug('GetSleepIntervalFromMetrics::get()', [
+            'intervalId' => $intervalId,
+        ]);
 
+        return [];
     }
 }
