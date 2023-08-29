@@ -3,6 +3,12 @@ import axios from "axios";
 import {getCurrentInstance, onErrorCaptured, ref} from "vue";
 import SleepInterval from "@/components/SleepInterval.vue";
 import PrimaryButton from "@/components/PrimaryButton.vue";
+import LoadApiToken from "@/components/LoadApiToken.vue";
+
+const componentKey = ref(0);
+const forceRerender = () => {
+  componentKey.value += 1;
+};
 
 console.log("<LoadUserData>");
 onErrorCaptured(e => {
@@ -31,11 +37,6 @@ console.log('LoadUserData::intervalIds', intervalIds);
 const linkedUsers = (await axios.get('/user/link/list', httpConfig)).data.users;
 console.log('LoadUserData::linkedUsers', linkedUsers);
 
-const componentKey = ref(0);
-const forceRerender = () => {
-  componentKey.value += 1;
-};
-
 let intervalIndex = 0;
 const selectedIntervalId = ref(intervalIds[intervalIndex]);
 console.log('LoadUserData::selectedIntervalId', selectedIntervalId);
@@ -46,26 +47,34 @@ function previousInterval() {
   console.log('previousInterval', selectedIntervalId, intervalIndex);
   forceRerender();
 }
+
 function nextInterval() {
   intervalIndex = (intervalIndex + 1) % intervalIds.length;
   selectedIntervalId.value = intervalIds[intervalIndex];
   console.log('nextInterval', selectedIntervalId, intervalIndex);
-  forceRerender();
+  forceRerender()
 }
 
 </script>
 
 <template>
   <div>
-    <PrimaryButton @click="previousInterval" class="ml-4" >
+    <PrimaryButton @click="previousInterval" class="ml-4">
       Previous
     </PrimaryButton>
-    <PrimaryButton @click="nextInterval" class="ml-4" >
+    <PrimaryButton @click="nextInterval" class="ml-4">
       Next
     </PrimaryButton>
   </div>
   <div>
-    <SleepInterval v-bind:id="selectedIntervalId" :http-config="httpConfig" :key="componentKey"/>
+    <Suspense :key="componentKey">
+      <SleepInterval v-bind:id="selectedIntervalId" :http-config="httpConfig" />
+      <template #fallback>
+        <div class="sm:justify-center" style="margin-top: 50px">
+          <SyncLoader></SyncLoader>
+        </div>
+      </template>
+    </Suspense>
   </div>
 </template>
 
