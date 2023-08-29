@@ -67,7 +67,7 @@ const heartRateData = {
   }]
 };
 const respiratoryRateData = {
-  labels: heartRateDates,
+  labels: respiratoryRateDates,
   datasets: [{
     label: 'Respiratory Rate',
     data: respiratoryRateValues,
