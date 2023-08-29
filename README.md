@@ -27,6 +27,12 @@ chmod a+x setup-environment.sh
 - Open `<root>/.env`
 - Add token value to `INFLUXDB_TOKEN=`
 
+Now we should be ready to populate the datastores
+```shell
+chmod a+x setup-data.sh
+./setup-data.sh
+```
+
 ## Development Site
 - http://localhost:8080
 
