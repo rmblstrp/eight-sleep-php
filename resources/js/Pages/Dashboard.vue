@@ -2,6 +2,12 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head} from '@inertiajs/vue3';
 import LoadApiToken from "@/components/LoadApiToken.vue";
+import {onErrorCaptured} from "vue";
+
+onErrorCaptured(e => {
+    console.log(e)
+    return false
+})
 </script>
 
 <template>

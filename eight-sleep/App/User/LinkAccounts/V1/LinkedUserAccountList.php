@@ -6,21 +6,22 @@ use JMS\Serializer\Annotation as Serializer;
 
 class LinkedUserAccountList
 {
-    private array $ids = [];
+    /** @var LinkedUser[] */
+    private array $users = [];
 
     /**
-     * @param int[] $ids
+     * @param LinkedUser[] $users
      */
-    public function __construct(array $ids)
+    public function __construct(array $users = [])
     {
-        $this->ids = $ids;
+        $this->users = $users;
     }
 
     /**
-     * @return int[]
+     * @return LinkedUser[]
      */
-    public function getIds(): array
+    public function getUsers(): array
     {
-        return $this->ids;
+        return $this->users;
     }
 }

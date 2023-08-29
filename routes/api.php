@@ -30,7 +30,7 @@ Route::middleware(['auth:sanctum', 'request.user'])->group(function () {
     Route::post('/v1/sleep/session', [IngestSessionDataController::class, 'handle']);
     Route::get('/v1/sleep/interval/list', [ListSleepIntervalsController::class, 'handle']);
     Route::get('/v1/sleep/interval', [GetSleepIntervalController::class, 'handle']);
-    Route::get('/v1/user/link', [ListLinkedUserAccountsController::class, 'handle']);
+    Route::get('/v1/user/link/list', [ListLinkedUserAccountsController::class, 'handle']);
     Route::get('/v1/user/link/request', [ListAccountLinkRequestsController::class, 'handle']);
     Route::post('/v1/user/link/request', [InitiateAccountLinkingController::class, 'handle']);
     Route::delete('/v1/user/link/request', [CancelAccountLinkingController::class, 'handle']);
