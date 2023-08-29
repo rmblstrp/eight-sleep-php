@@ -21,11 +21,18 @@ console.log('SleepStages::stages updated', stages);
 </script>
 
 <template>
-  <h1>Stages</h1>
-  <li v-for="metric in stages">
-    <div>{{ metric.stage }}</div>
-    <div>{{ metric.time }}</div>
-  </li>
+  <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+    <div>
+      <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-gray-400">Stages</h2>
+
+      <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+        <div v-for="metric in stages">
+          <div>{{ metric.stage }}</div>
+          <div>{{ metric.time }}</div>
+        </div>
+      </p>
+    </div>
+  </div>
 </template>
 
 <style scoped>

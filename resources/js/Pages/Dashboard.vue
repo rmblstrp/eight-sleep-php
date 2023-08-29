@@ -23,7 +23,9 @@ onErrorCaptured(e => {
         <Suspense>
           <LoadApiToken/>
           <template #fallback>
-            <SyncLoader></SyncLoader>
+            <div class="sm:justify-center">
+              <SyncLoader></SyncLoader>
+            </div>
           </template>
         </Suspense>
       </div>
