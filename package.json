@@ -25,8 +25,12 @@
     },
     "dependencies": {
         "@inertiajs/inertia-react": "^0.8.1",
+        "@vueuse/core": "^10.4.1",
+        "bootstrap": "^5.3.1",
+        "bootstrap-vue": "^2.23.1",
         "chart.js": "^4.4.0",
         "express": "^4.18.2",
-        "vue-chartjs": "^5.2.0"
+        "vue-chartjs": "^5.2.0",
+        "vue-spinner": "^1.0.4"
     }
 }

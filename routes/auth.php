@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -36,6 +37,14 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('api-token', function () {
+        return response()->json([
+            'status'  => true,
+            'message' => 'User Logged In Successfully',
+            'token'   => Auth::user()->createToken("API TOKEN")->plainTextToken,
+        ], 200);
+    });
+
     Route::get('verify-email', EmailVerificationPromptController::class)
                 ->name('verification.notice');
 
